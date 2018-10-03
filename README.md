@@ -9,6 +9,9 @@ This folder contains various resources such as the modified gateware running on 
 ## Software
 This folder contains some prototype applications written in C++ that make use of the LimeSuite LMS API.
 
+### pps_delta
+This is a simple application used to measure the number of samples between PPS events in order to check the true frequency of the PLL.
+
 ### pps_rx_sync
 This program produces an output file each second that contains a header followed by a buffer of interleaved IQ samples in int16_t format. The header specifies the index of the first sample in the buffer and the index of the sample corresponding to the PPS trigger event as well as a unix timestamp for the file.
 
