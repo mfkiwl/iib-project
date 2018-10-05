@@ -2,7 +2,7 @@
 -- FILE: 	rx_path_top.vhd
 -- DESCRIPTION:	describe file
 -- DATE:	March 27, 2017
--- AUTHOR(s):	Lime Microsystems
+-- AUTHOR(s):	Lime Microsystems, Matt Coates
 -- REVISIONS:
 -- ----------------------------------------------------------------------------	
 library ieee;
@@ -13,60 +13,67 @@ use ieee.numeric_std.all;
 -- Entity declaration
 -- ----------------------------------------------------------------------------
 entity rx_path_top is
-   generic( 
-      dev_family				: string := "Cyclone IV E";
-      iq_width					: integer := 12;
-      invert_input_clocks	: string := "OFF";
-      smpl_buff_rdusedw_w  : integer := 11; --bus width in bits 
-      pct_buff_wrusedw_w   : integer := 12  --bus width in bits 
-      );
-   port (
-      clk                  : in std_logic;
-      reset_n              : in std_logic;
-		io_reset_n				: in std_logic;
-		test_ptrn_en			: in std_logic;
-		smpl_src_sel			: in std_logic;	-- 0 - RX data, 1 - smpl_fifo 
-      --Mode settings
-      sample_width         : in std_logic_vector(1 downto 0); --"10"-12bit, "01"-14bit, "00"-16bit;
-      mode			         : in std_logic; -- JESD207: 1; TRXIQ: 0
-		trxiqpulse	         : in std_logic; -- trxiqpulse on: 1; trxiqpulse off: 0
-		ddr_en 		         : in std_logic; -- DDR: 1; SDR: 0
-		mimo_en		         : in std_logic; -- SISO: 1; MIMO: 0
-		ch_en			         : in std_logic_vector(1 downto 0); --"01" - Ch. A, "10" - Ch. B, "11" - Ch. A and Ch. B. 
-		fidm			         : in std_logic; -- External Frame ID mode. Frame start at fsync = 0, when 0. Frame start at fsync = 1, when 1.
-      --Rx interface data 
-      DIQ		 	         : in std_logic_vector(iq_width-1 downto 0);
-		fsync	 	            : in std_logic;
-		DIQ_h						: out std_logic_vector(iq_width downto 0);
-		DIQ_l						: out std_logic_vector(iq_width downto 0);
-      --samples
-		smpl_fifo_wrreq		: in std_logic;
-		smpl_fifo_data			: in std_logic_vector(iq_width*4-1 downto 0);
-		smpl_fifo_wfull	   : out std_logic;
-      smpl_fifo_wrreq_out  : out std_logic;
-      --Packet fifo ports 
-      pct_fifo_wusedw      : in std_logic_vector(pct_buff_wrusedw_w-1 downto 0);
-      pct_fifo_wrreq       : out std_logic;
-      pct_fifo_wdata       : out std_logic_vector(63 downto 0);
-      pct_hdr_cap          : out std_logic;
-      --sample nr
-      clr_smpl_nr          : in std_logic;
-      ld_smpl_nr           : in std_logic;
-      smpl_nr_in           : in std_logic_vector(63 downto 0);
-      smpl_nr_cnt          : buffer std_logic_vector(63 downto 0);
-      --flag control
-      tx_pct_loss          : in std_logic;
-      tx_pct_loss_clr      : in std_logic;
-      --sample compare
-      smpl_cmp_start       : in std_logic;
-      smpl_cmp_length      : in std_logic_vector(15 downto 0);
-      smpl_cmp_done        : out std_logic;
-      smpl_cmp_err         : out std_logic;
+  generic( 
+    dev_family				    : string := "Cyclone IV E";
+    iq_width					    : integer := 12;
+    invert_input_clocks	  : string := "OFF";
+    smpl_buff_rdusedw_w   : integer := 11; --bus width in bits 
+    pct_buff_wrusedw_w    : integer := 12  --bus width in bits 
+  );
+  port (
+    clk                   : in std_logic;
+    reset_n               : in std_logic;
+		io_reset_n				    : in std_logic;
+		test_ptrn_en			    : in std_logic;
+		smpl_src_sel			    : in std_logic;	-- 0 - RX data, 1 - smpl_fifo 
+    
+    --Mode settings
+    sample_width          : in std_logic_vector(1 downto 0); --"10"-12bit, "01"-14bit, "00"-16bit;
+    mode			            : in std_logic; -- JESD207: 1; TRXIQ: 0
+		trxiqpulse	          : in std_logic; -- trxiqpulse on: 1; trxiqpulse off: 0
+		ddr_en 		            : in std_logic; -- DDR: 1; SDR: 0
+		mimo_en		            : in std_logic; -- SISO: 1; MIMO: 0
+		ch_en			            : in std_logic_vector(1 downto 0); --"01" - Ch. A, "10" - Ch. B, "11" - Ch. A and Ch. B. 
+		fidm			            : in std_logic; -- External Frame ID mode. Frame start at fsync = 0, when 0. Frame start at fsync = 1, when 1.
+    
+    --Rx interface data 
+    DIQ		 	              : in std_logic_vector(iq_width-1 downto 0);
+		fsync	 	              : in std_logic;
+		DIQ_h						      : out std_logic_vector(iq_width downto 0);
+		DIQ_l						      : out std_logic_vector(iq_width downto 0);
+    
+    --samples
+		smpl_fifo_wrreq		    : in std_logic;
+		smpl_fifo_data			  : in std_logic_vector(iq_width*4-1 downto 0);
+		smpl_fifo_wfull	      : out std_logic;
+    smpl_fifo_wrreq_out   : out std_logic;
+    
+    --Packet fifo ports 
+    pct_fifo_wusedw      : in std_logic_vector(pct_buff_wrusedw_w-1 downto 0);
+    pct_fifo_wrreq       : out std_logic;
+    pct_fifo_wdata       : out std_logic_vector(63 downto 0);
+    pct_hdr_cap          : out std_logic;
+    
+    --sample nr
+    clr_smpl_nr          : in std_logic;
+    ld_smpl_nr           : in std_logic;
+    smpl_nr_in           : in std_logic_vector(63 downto 0);
+    smpl_nr_cnt          : buffer std_logic_vector(63 downto 0);
+    
+    --flag control
+    tx_pct_loss          : in std_logic;
+    tx_pct_loss_clr      : in std_logic;
+    
+    --sample compare
+    smpl_cmp_start       : in std_logic;
+    smpl_cmp_length      : in std_logic_vector(15 downto 0);
+    smpl_cmp_done        : out std_logic;
+    smpl_cmp_err         : out std_logic;
 		
 		-- EDIT: External RX Sync Flag
 		ext_flag					: in std_logic
      
-        );
+  );
 end rx_path_top;
 
 -- ----------------------------------------------------------------------------
@@ -77,9 +84,9 @@ architecture arch of rx_path_top is
 
 
 --sync registers
-signal test_ptrn_en_sync		: std_logic;
+signal test_ptrn_en_sync		  : std_logic;
 signal reset_n_sync           : std_logic;
-signal io_reset_n_sync			: std_logic;
+signal io_reset_n_sync			  : std_logic;
 signal tx_pct_loss_sync       : std_logic;
 signal tx_pct_loss_clr_sync   : std_logic;
 signal sample_width_sync      : std_logic_vector(1 downto 0); 
@@ -94,13 +101,15 @@ signal ld_smpl_nr_sync        : std_logic;
 signal smpl_nr_in_sync        : std_logic_vector(63 downto 0);
 signal smpl_src_sel_sync      : std_logic;
 
--- EDIT: Buffered PPS Signal & Timer Value at Trigger
-signal ext_flag_sync				: std_logic;
-signal flag_capture_q			: std_logic_vector(63 downto 0);
-
 signal smpl_cmp_start_sync    : std_logic;
 signal smpl_cmp_length_sync   : std_logic_vector(15 downto 0);		 
 
+-- EDIT:
+signal ext_flag_sync				  : std_logic;                      -- Buffered PPS signal
+signal ext_flag_sync_d        : std_logic;                      -- Above delayed one clock cycle
+signal flag_capture_q			    : std_logic_vector(63 downto 0);  -- Counter value at PPS sync event
+signal since_wrreq            : std_logic_vector(1 downto 0);    -- Clock cycles since sample arriving in FIFO
+signal my_mode                : std_logic_vector(1 downto 0);   -- Operating mode of LimeLight IQ interface
 
 --inst0 
 signal inst0_fifo_wrreq       : std_logic;
@@ -124,11 +133,10 @@ signal delay_chain   : my_array;
 signal tx_pct_loss_detect     : std_logic;
 
 signal smpl_fifo_wrreq_mux		: std_logic;
-signal smpl_fifo_data_mux		: std_logic_vector(iq_width*4-1 downto 0);
+signal smpl_fifo_data_mux		  : std_logic_vector(iq_width*4-1 downto 0);
 
 signal smpl_fifo_wrreq_mux_reg: std_logic;
 signal smpl_fifo_data_mux_reg	: std_logic_vector(iq_width*4-1 downto 0);
-
 
 
 
@@ -206,93 +214,91 @@ port map(clk, '1', smpl_cmp_length, smpl_cmp_length_sync);
 -- diq2fifo instance
 -- ----------------------------------------------------------------------------
 diq2fifo_inst0 : entity work.diq2fifo
-   generic map( 
-      dev_family				=> dev_family,
-      iq_width					=> iq_width,
-      invert_input_clocks	=> invert_input_clocks
-      )
-   port map(
-      clk               => clk,
-      reset_n           => reset_n_sync,
-		io_reset_n	      => io_reset_n_sync,
-      --Mode settings
-		test_ptrn_en      => test_ptrn_en_sync,
-      mode			      => mode_sync, -- JESD207: 1; TRXIQ: 0
-		trxiqpulse	      => trxiqpulse_sync, -- trxiqpulse on: 1; trxiqpulse off: 0
-		ddr_en 		      => ddr_en_sync, -- DDR: 1; SDR: 0
-		mimo_en		      => mimo_en_sync, -- SISO: 1; MIMO: 0
-		ch_en			      => ch_en_sync, --"01" - Ch. A, "10" - Ch. B, "11" - Ch. A and Ch. B. 
-		fidm			      => fidm_sync, -- External Frame ID mode. Frame start at fsync = 0, when 0. Frame start at fsync = 1, when 1.
-      --Rx interface data 
-      DIQ		 	      => DIQ,
-		fsync	 	         => fsync,
-		DIQ_h			      => DIQ_h,
-		DIQ_l			      => DIQ_l,
-      --fifo ports 
-      fifo_wfull        => inst1_wrfull,
-      fifo_wrreq        => inst0_fifo_wrreq,
-      fifo_wdata        => inst0_fifo_wdata,
-      smpl_cmp_start    => smpl_cmp_start_sync,
-      smpl_cmp_length   => smpl_cmp_length_sync,
-      smpl_cmp_done     => smpl_cmp_done,
-      smpl_cmp_err      => smpl_cmp_err 
-        );
+  generic map( 
+    dev_family				  => dev_family,
+    iq_width					  => iq_width,
+    invert_input_clocks	=> invert_input_clocks
+  )
+  port map(
+    clk               => clk,
+    reset_n           => reset_n_sync,
+    io_reset_n	      => io_reset_n_sync,
+    
+    --Mode settings
+    test_ptrn_en      => test_ptrn_en_sync,
+    mode			        => mode_sync, -- JESD207: 1; TRXIQ: 0
+    trxiqpulse	      => trxiqpulse_sync, -- trxiqpulse on: 1; trxiqpulse off: 0
+    ddr_en 		        => ddr_en_sync, -- DDR: 1; SDR: 0
+    mimo_en		        => mimo_en_sync, -- SISO: 1; MIMO: 0
+    ch_en			        => ch_en_sync, --"01" - Ch. A, "10" - Ch. B, "11" - Ch. A and Ch. B. 
+    fidm			        => fidm_sync, -- External Frame ID mode. Frame start at fsync = 0, when 0. Frame start at fsync = 1, when 1.
+    
+    --Rx interface data 
+    DIQ		 	          => DIQ,
+    fsync	 	          => fsync,
+    DIQ_h			        => DIQ_h,
+    DIQ_l			        => DIQ_l,
+    
+    --fifo ports 
+    fifo_wfull        => inst1_wrfull,
+    fifo_wrreq        => inst0_fifo_wrreq,
+    fifo_wdata        => inst0_fifo_wdata,
+    smpl_cmp_start    => smpl_cmp_start_sync,
+    smpl_cmp_length   => smpl_cmp_length_sync,
+    smpl_cmp_done     => smpl_cmp_done,
+    smpl_cmp_err      => smpl_cmp_err 
+  );
         
         
 smpl_fifo_mux : process(clk, reset_n_sync)
 begin
-   if reset_n_sync = '0' then 
-      smpl_fifo_wrreq_mux <= '0';
-      smpl_fifo_data_mux <= (others => '0');
-   elsif (clk'event AND clk='1') then 
-      if smpl_src_sel_sync = '0' then 
-         smpl_fifo_wrreq_mux <= inst0_fifo_wrreq;
-         smpl_fifo_data_mux <= inst0_fifo_wdata;
-      else 
-         smpl_fifo_wrreq_mux <= smpl_fifo_wrreq;
-         smpl_fifo_data_mux <= smpl_fifo_data;
-      end if;
-   end if;
+  if reset_n_sync = '0' then 
+    smpl_fifo_wrreq_mux <= '0';
+    smpl_fifo_data_mux <= (others => '0');
+  elsif (clk'event AND clk='1') then 
+    if smpl_src_sel_sync = '0' then 
+      smpl_fifo_wrreq_mux <= inst0_fifo_wrreq;
+      smpl_fifo_data_mux <= inst0_fifo_wdata;
+    else 
+      smpl_fifo_wrreq_mux <= smpl_fifo_wrreq;
+      smpl_fifo_data_mux <= smpl_fifo_data;
+    end if;
+  end if;
 end process;
 
 smpl_fifo_wrreq_out <= smpl_fifo_wrreq_mux;
 
 
-
-
-
-        
-               
 -- ----------------------------------------------------------------------------
 -- FIFO for storing samples
 -- ----------------------------------------------------------------------------       
 smpl_fifo_inst1 : entity work.fifo_inst
   generic map(
-      dev_family	    => dev_family, 
-      wrwidth         => (iq_width*4),
-      wrusedw_witdth  => smpl_buff_rdusedw_w,
-      rdwidth         => (iq_width*4),
-      rdusedw_width   => smpl_buff_rdusedw_w,
-      show_ahead      => "OFF"
+    dev_family	    => dev_family, 
+    wrwidth         => (iq_width*4),
+    wrusedw_witdth  => smpl_buff_rdusedw_w,
+    rdwidth         => (iq_width*4),
+    rdusedw_width   => smpl_buff_rdusedw_w,
+    show_ahead      => "OFF"
   ) 
 
   port map(
-      --input ports 
-      reset_n       => reset_n_sync,
-      wrclk         => clk,
-      wrreq         => smpl_fifo_wrreq_mux,
-      data          => smpl_fifo_data_mux,
-      wrfull        => inst1_wrfull,
-		wrempty		  => open,
-      wrusedw       => open,
-      rdclk 	     => clk,
-      rdreq         => inst2_smpl_buff_rdreq,
-      q             => inst1_q,
-      rdempty       => open,
-      rdusedw       => inst1_rdusedw  
-        );
+    --input ports 
+    reset_n       => reset_n_sync,
+    wrclk         => clk,
+    wrreq         => smpl_fifo_wrreq_mux,
+    data          => smpl_fifo_data_mux,
+    wrfull        => inst1_wrfull,
+		wrempty		    => open,
+    wrusedw       => open,
+    rdclk 	      => clk,
+    rdreq         => inst2_smpl_buff_rdreq,
+    q             => inst1_q,
+    rdempty       => open,
+    rdusedw       => inst1_rdusedw  
+  );
         
-   smpl_fifo_wfull <= inst1_wrfull;
+  smpl_fifo_wfull <= inst1_wrfull;
  
 --samples are placed to MSb LSb are filled with zeros 
 -- inst2_smpl_buff_rddata <=  inst1_q(47 downto 36) & "0000" & 
@@ -344,112 +350,160 @@ inst2_smpl_buff_rddata(16-iq_width-1 downto 0) <= (others=>'0');
 -- Instance for packing samples to packets
 -- ----------------------------------------------------------------------------       
 data2packets_top_inst2 : entity work.data2packets_top
-   generic map(
-      smpl_buff_rdusedw_w => smpl_buff_rdusedw_w,  --bus width in bits 
-      pct_buff_wrusedw_w  => pct_buff_wrusedw_w    --bus width in bits            
-   )
-   port map(
-      clk               => clk,
-      reset_n           => reset_n_sync,
-      sample_width      => sample_width_sync,
-      pct_hdr_0         => inst2_pct_hdr_0,
-      pct_hdr_1         => inst2_pct_hdr_1,
-      pct_buff_wrusedw  => pct_fifo_wusedw,
-      pct_buff_wrreq    => pct_fifo_wrreq,
-      pct_buff_wrdata   => pct_fifo_wdata,
-      pct_hdr_cap       => pct_hdr_cap,
-      smpl_buff_rdusedw => inst1_rdusedw,
-      smpl_buff_rdreq   => inst2_smpl_buff_rdreq,
-      smpl_buff_rddata  => inst2_smpl_buff_rddata   
-        );
+  generic map(
+    smpl_buff_rdusedw_w => smpl_buff_rdusedw_w,  --bus width in bits 
+    pct_buff_wrusedw_w  => pct_buff_wrusedw_w    --bus width in bits            
+  )
+  port map(
+    clk               => clk,
+    reset_n           => reset_n_sync,
+    sample_width      => sample_width_sync,
+    pct_hdr_0         => inst2_pct_hdr_0,
+    pct_hdr_1         => inst2_pct_hdr_1,
+    pct_buff_wrusedw  => pct_fifo_wusedw,
+    pct_buff_wrreq    => pct_fifo_wrreq,
+    pct_buff_wrdata   => pct_fifo_wdata,
+    pct_hdr_cap       => pct_hdr_cap,
+    smpl_buff_rdusedw => inst1_rdusedw,
+    smpl_buff_rdreq   => inst2_smpl_buff_rdreq,
+    smpl_buff_rddata  => inst2_smpl_buff_rddata   
+  );
         
 -- ----------------------------------------------------------------------------
 -- Instance for packing sample counter for packet forming
 -- ----------------------------------------------------------------------------        
 smpl_cnt_inst3 : entity work.smpl_cnt
-   generic map(
-      cnt_width   => 64
-   )
-   port map(
-
-      clk         => clk,
-      reset_n     => reset_n_sync,
-      mode			=> mode_sync,
-		trxiqpulse	=> trxiqpulse_sync,
-		ddr_en 		=> ddr_en_sync,
-		mimo_en		=> mimo_en_sync,
-		ch_en			=> ch_en_sync,
-      sclr        => clr_smpl_nr_sync,
-      sload       => ld_smpl_nr_sync,
-      data        => smpl_nr_in_sync,
-      cnt_en      => inst2_smpl_buff_rdreq,
-      q           => inst3_q        
-        );
+  generic map(
+    cnt_width   => 64
+  )
+  port map(
+    clk         => clk,
+    reset_n     => reset_n_sync,
+    mode			  => mode_sync,
+    trxiqpulse	=> trxiqpulse_sync,
+    ddr_en 		  => ddr_en_sync,
+    mimo_en		  => mimo_en_sync,
+    ch_en			  => ch_en_sync,
+    sclr        => clr_smpl_nr_sync,
+    sload       => ld_smpl_nr_sync,
+    data        => smpl_nr_in_sync,
+    cnt_en      => inst2_smpl_buff_rdreq,
+    q           => inst3_q        
+  );
 		  
 -- ----------------------------------------------------------------------------
 -- Instance for sample counter
 -- ----------------------------------------------------------------------------        
 smpl_cnt_inst4 : entity work.smpl_cnt
-   generic map(
-      cnt_width   => 64
-   )
-   port map(
-
-      clk         => clk,
-      reset_n     => reset_n_sync,
-      mode			=> mode_sync,
+  generic map(
+    cnt_width   => 64
+  )
+  port map(
+    clk         => clk,
+    reset_n     => reset_n_sync,
+    mode			  => mode_sync,
 		trxiqpulse	=> trxiqpulse_sync,
-		ddr_en 		=> ddr_en_sync,
-		mimo_en		=> mimo_en_sync,
-		ch_en			=> ch_en_sync,
-      sclr        => clr_smpl_nr_sync,
-      sload       => ld_smpl_nr_sync,
-      data        => smpl_nr_in_sync,
-      cnt_en      => smpl_fifo_wrreq_mux,
-      q           => smpl_nr_cnt        
-        );
+		ddr_en 		  => ddr_en_sync,
+		mimo_en	  	=> mimo_en_sync,
+		ch_en			  => ch_en_sync,
+    sclr        => clr_smpl_nr_sync,
+    sload       => ld_smpl_nr_sync,
+    data        => smpl_nr_in_sync,
+    cnt_en      => smpl_fifo_wrreq_mux,
+    q           => smpl_nr_cnt        
+  );
         
 -- ----------------------------------------------------------------------------
 -- There is 6 clock cycle latency from smpl_fifo_inst1 to packet formation
 -- and smpl_cnt has to be delayed 6 cycles
 -- ----------------------------------------------------------------------------
-
--- EDIT: Update flag_capture_q with sample counter value whilst PPS is low. When
---  		PPS goes high insert flag_capture_q into packet header, thereby sending
--- 		the sample index corresponding to the 0 -> 1 PPS transition. WHilst PPS
---			is low the packet header is unaltered. We flip the MSB of the modified
---			timestamps to allow the PC to differentiate.
-       
+      
 delay_registers : process(clk, reset_n_sync)
 begin
-   if reset_n_sync = '0' then 
-      delay_chain <= (others=>(others=>'0'));
-   elsif (clk'event AND clk='1') then
-		-- Update 'flag_capture_q' whilst PPS='0'
-		if (ext_flag_sync='0') then
-         flag_capture_q <= '1' & smpl_nr_cnt(62 downto 0);
-      end if;	
-      for i in 0 to 5 loop
-         if i=0 then
-            if (ext_flag_sync='0') then
-               -- PPS Low => Leave Unaltered
-					delay_chain(i) <= inst3_q;
-            else
-					-- PPS High => Insert Tranistion Index
-               delay_chain(i) <= flag_capture_q;
-            end if;
-         else 
-            delay_chain(i) <= delay_chain(i-1);
-         end if;
-      end loop;
-   end if;
+  
+  if reset_n_sync = '0' then 
+    delay_chain <= (others=>(others=>'0'));
+  
+  elsif (clk'event AND clk='1') then
+
+    for i in 0 to 5 loop
+      if i=0 then
+        if (ext_flag_sync_d='0') then
+          -- PPS Low => Leave Unaltered
+          delay_chain(i) <= inst3_q;
+        else
+          -- PPS High => Insert Tranistion Index
+          delay_chain(i) <= flag_capture_q;
+        end if;
+      else 
+        delay_chain(i) <= delay_chain(i-1);
+      end if;
+    end loop;
+
+    -- Count Clock Cycles
+    if inst0_fifo_wrreq = '1' then
+      since_wrreq <= (others=>'0');
+    else 
+      -- Add one to since_wrreq:
+      since_wrreq(1) <= since_wrreq(1) xor since_wrreq(0);
+      since_wrreq(0) <= not since_wrreq(0);
+    end if;
+
+    -- Update 'flag_capture_q' whilst PPS = 0
+    if ext_flag_sync = '0' then
+      -- SISO DDR - Counter increments every other tick
+      if my_mode ="00" and since_wrreq(0) = '1'  then
+        flag_capture_q <= '1' & smpl_nr_cnt(62 downto 1 ) & '1';
+      -- SISO SDR OR MIMO DDR 1 Ch - Counter increments every four ticks
+      elsif my_mode(1) = '1' and since_wrreq(1) = '1'  then
+        flag_capture_q <= '1' & smpl_nr_cnt(62 downto 1 ) & '1';
+      else
+        flag_capture_q <= '1' & smpl_nr_cnt(62 downto 0);
+      end if;
+    end if;
+    
+    ext_flag_sync_d <= ext_flag_sync;
+
+  end if;
 end process;
         
- inst2_pct_hdr_1 <=  delay_chain(5);      
-  
-end arch;   
+inst2_pct_hdr_1 <=  delay_chain(5);
 
+my_mode <= "00" when (mimo_en_sync = '0' and ddr_en_sync = '1') else
+           "01" when ((mimo_en_sync = '1' or trxiqpulse_sync = '1') and ch_en_sync = "11") else
+           "10" when ((mimo_en_sync = '1' or trxiqpulse_sync = '1') and (ch_en_sync(0) xor ch_en_sync(1)) = '1' ) else
+           "11";
 
+end arch;
 
+-- my_mode:
+-- '00' is SISO DDR - Here there is one clock tick per sample, but the counter increments every second time.
+-- '01' is MIMO DDR/TXIQ 2 Channel - Here the counter takes care of itself.
+-- '10' is MIMO DDR/TXIQ 1 Channel - Here there are two clocks per sample, but four per counter increment.
+-- '11' is SISO SDR - Here there are again two clocks per sample, but four per counter increment.
 
+-- The truth table and code from txiq.vhd below have been used to set my_mode accordingly based on the
+-- signals mimo_en, ddr_en, ch_en and trxiqpulse.
 
+-- Copied from txiq.vhd
+-- ----------------------------------------------------------------------------
+-- Truth table for mode selection
+-- ----------------------------------------------------------------------------
+-- Mode       | TRXIQ_PULSE  | MIMO DDR  | MIMO DDR  | MIMO DDR  | SISO DDR  | SISO SDR  |
+--            |              |  all ch.  |  1 ch.    |  2 ch.    |           |           |
+-- trxiqpulse |       H      |     L     |    L      |    L      |     L     |     L     |
+-- ddr_en     |       X      |     H     |    H      |    H      |     H     |     L     |
+-- mimo_en    |       X      |     H     |    H      |    H      |     L     |     L     |
+-- ch_en      |       XX     |     HH    |   LH      |    HL     |     XX    |     XX    |
+
+-----------------------------------------------------------------------------
+-- Internal mode selection for DIQ position
+-- "00" - MIMO DDR both channels enabled, SISO DDR, TXIQ_PULSE
+-- "01" - MIMO DDR, TXIQ_PULSE first channel enabled
+-- "10" - MIMO DDR, TXIQ_PULSE second channel enabled
+-- "11" - SISO SDR 
+-- ----------------------------------------------------------------------------
+-- int_mode <= "00" when (mimo_en='0' AND ddr_en='1') OR ((mimo_en='1' OR trxiqpulse ='1') AND ch_en="11") else 
+--             "01" when ((mimo_en='1' OR trxiqpulse ='1') AND ch_en="01") else
+--             "10" when ((mimo_en='1' OR trxiqpulse ='1') AND ch_en="10") else
+--             "11";
