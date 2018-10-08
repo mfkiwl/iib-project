@@ -6,6 +6,9 @@ This contains the design files and firmware for a GPS disciplined oscillator. It
 ## Lime-SDR
 This folder contains various resources such as the modified gateware running on the Lime Mini's MAX10 FPGA, the design files for a small PCB to break the 0.1" header on the Lime Mini out to an SMA connector, and a setup guide.
 
+## Model
+This folder contains some python notebooks that attempt to model a TDOA system.
+
 ## Software
 This folder contains some prototype applications written in C++ that make use of the LimeSuite LMS API.
 
