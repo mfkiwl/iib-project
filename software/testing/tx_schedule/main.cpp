@@ -10,7 +10,7 @@
 #include "tranciever_setup.h"
 using namespace std;
 
-// g++ main.cpp tranciever_setup.cpp -std=c++11 -lLimeSuite -o test.out
+// g++ main.cpp tranciever_setup.cpp -std=c++11 -lLimeSuite -o tx-test.out
 
 /* Entry Point */
 int main(int argc, char** argv){
