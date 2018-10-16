@@ -36,7 +36,8 @@ int main(int argc, char** argv){
     config.rf_oversample_ratio = 4;                     // ADC Oversample Ratio
     
     configure_reciever(config);
-    
+
+
     /* RX Stream Config  */
     lms_stream_t rx_stream;
     rx_stream.channel = 0;                              // Channel Number
@@ -83,7 +84,8 @@ int main(int argc, char** argv){
     file_metadata.input_power = user_input_power;
 
     /* Write to File */
-    data_file.open(out_path + to_string(std::time(NULL)) + "_" + to_string((int)user_input_power) + ".bin", std::ofstream::binary);
+    string file_name = to_string(std::time(NULL)) + "_" + to_string((int)user_input_power) + "_" + to_string(user_rx_gain); 
+    data_file.open(out_path + file_name + ".bin", std::ofstream::binary);
     data_file.write((char*)&file_metadata, sizeof(file_metadata));
     data_file.write((char*)file_buffer, sizeof(file_buffer));
     data_file.close();
@@ -100,6 +102,14 @@ int main(int argc, char** argv){
 
     /* Close Device */
     LMS_Close(device);
+
+    /* Run Python Plotter */
+    cout << endl;
+    std::string args = "./data/" + file_name + ".bin";
+    std::string filename = "./sample_plot.py ";
+    std::string command = "python3 ";
+    command = command + filename + args;
+    system(command.c_str());
 
     return 0;
 }

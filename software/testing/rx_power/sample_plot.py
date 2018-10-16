@@ -39,8 +39,8 @@ for n in range(0, num_samples):
 samples = (I + 1j*Q)
 
 # Plot I&Q Channels
-plt.plot(np.real(samples), label='I')
-plt.plot(np.imag(samples), label='Q')
+plt.plot(np.real(samples[0:1360]), label='I')
+plt.plot(np.imag(samples[0:1360]), label='Q')
 plt.grid(True)  
 plt.legend(loc='upper right', frameon=True)
 plt.show()
