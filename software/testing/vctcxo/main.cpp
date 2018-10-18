@@ -55,16 +55,19 @@ int main(int argc, char** argv){
     /* LMS7 Temperature */
     float_type temp = 0;
 
-    /* VCTCXO DAC Controller - 0 to 255 -> 0v to 2.538v */
-    uint16_t dac_value = 186;
+    /* VCTCXO DAC Controller - 0 to 4095 -> 0v to 2.538v */
+    uint16_t dac_value = 2972;
+    uint16_t tmp_value = 0;
     uint64_t target_freq = 30720000;
     bool dac_updated = false;
     
     /* Write & Read DAC */
+    LMS_VCTCXORead(device, &tmp_value);
+    cout << "DAC = " << tmp_value << endl;
     cout << "Writing " << dac_value << " to DAC..." <<endl;
     LMS_VCTCXOWrite(device, dac_value);
-    LMS_VCTCXORead(device, &dac_value);
-    cout << "DAC = " << dac_value << endl;
+    LMS_VCTCXORead(device, &tmp_value);
+    cout << "DAC = " << tmp_value << endl;
 
     /* Start streaming */
     LMS_StartStream(&rx_stream);
@@ -101,7 +104,7 @@ int main(int argc, char** argv){
                 } else {
                     
                     /* Below Targe Frequency e.g. 30719997 and below */
-                    if(freq < target_freq - 2){
+                    if(freq < target_freq - 1){
                         dac_value += 1;
                         LMS_VCTCXOWrite(device, dac_value);
                         dac_updated = true;
@@ -109,7 +112,7 @@ int main(int argc, char** argv){
                     }
                     
                     /* Above Target Frequency e.g. 30720003 and above */
-                    if(freq > target_freq + 2){
+                    if(freq > target_freq + 1){
                         dac_value -= 1;
                         LMS_VCTCXOWrite(device, dac_value);
                         dac_updated = true;
