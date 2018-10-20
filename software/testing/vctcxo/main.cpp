@@ -1,6 +1,7 @@
 #include <chrono>
 #include <ctime>
 #include <iostream>
+#include <iomanip> 
 #include <fstream>
 #include <stdio.h>
 #include "string.h"
@@ -25,7 +26,7 @@ int main(int argc, char** argv){
     config.rx_cal_bandwidth = 8e6;                      // Automatic Calibration Bandwidth
     
     config.sample_rate = 30.72e6;                       // Sample Rate 
-    config.rf_oversample_ratio = 1;                     // ADC Oversample Ratio
+    config.rf_oversample_ratio = 4;                     // ADC Oversample Ratio
     
     configure_reciever(config);
     
@@ -52,16 +53,21 @@ int main(int argc, char** argv){
     uint64_t pps_sync_idx = 0;
     uint64_t prev_pps_sync_idx = 0;
 
-    /* LMS7 Temperature */
-    float_type temp = 0;
-
     /* VCTCXO DAC Controller - 0 to 4095 -> 0v to 2.538v */
-    uint16_t dac_value = 2972;
+    uint16_t dac_value = 3205;
     uint16_t tmp_value = 0;
-    uint64_t target_freq = 30720000;
+    
+    double target_freq = 30720000;
+    double freq_err = 0.25; 
     bool dac_updated = false;
     
-    /* Write & Read DAC */
+    int j = 0;
+    bool first_buff = true;
+    const int ma_len = 10;
+    uint64_t readings[ma_len];
+    double avg_freq = 0;
+     
+    /* DAC Init */
     LMS_VCTCXORead(device, &tmp_value);
     cout << "DAC = " << tmp_value << endl;
     cout << "Writing " << dac_value << " to DAC..." <<endl;
@@ -94,31 +100,79 @@ int main(int argc, char** argv){
             /* Test for Unique PPS Event */
             if (pps_sync_idx != prev_pps_sync_idx){
                 
-                /* Calculate True Frequency */
+                
+                /* Calculate Instantaneous Frequency */
                 freq = pps_sync_idx - prev_pps_sync_idx;
-                cout << "Freq: " << freq << endl;
+                
 
-                /* VCTCXO Tuning */
+                /* Check if DAC Value Changed over Last Second */
                 if(dac_updated){
+
+                    /* Zero Stats */
+                    first_buff = true;
+                    for (int f=0;f<ma_len;f++){
+                        readings[f] = 0;
+                    }
+                    j=0;
                     dac_updated = false;
+
                 } else {
-                    
-                    /* Below Targe Frequency e.g. 30719997 and below */
-                    if(freq < target_freq - 1){
-                        dac_value += 1;
-                        LMS_VCTCXOWrite(device, dac_value);
-                        dac_updated = true;
-                        cout << "DAC updated to " << dac_value << endl;
+
+                    /* Calculate Moving Average */
+                    if(first_buff){
+                        readings[j] = freq;
+                        j++;
+                        avg_freq = 0;
+                        for(int k=0;k<j;k++){
+                            avg_freq += readings[k];
+                        }
+                        avg_freq = avg_freq/j;
+                        if(j==ma_len){
+                            first_buff = false;
+                        }
+                    } else {
+                        if(j==10){
+                            j=0;
+                        }
+                        readings[j] = freq;
+                        j++;
+                        avg_freq = 0;
+                        for(int m=0;m<ma_len;m++){
+                            avg_freq += readings[m];
+                        }
+                        avg_freq = avg_freq/ma_len;
                     }
-                    
-                    /* Above Target Frequency e.g. 30720003 and above */
-                    if(freq > target_freq + 1){
-                        dac_value -= 1;
-                        LMS_VCTCXOWrite(device, dac_value);
-                        dac_updated = true;
-                        cout << "DAC updated to " << dac_value << endl;
+
+                    /* Display Frequency Stats */
+                    cout << "Freq: " << freq << endl;
+                    cout << "History: ";
+                    for (int n=0;n<ma_len;n++){
+                        cout << readings[n] << " ";
                     }
-                }
+                    cout << endl;
+                    cout << std::setprecision(12) << "Avg: " << avg_freq << endl << endl;
+
+
+                    /* Reduce Frequency */
+                    if(avg_freq > target_freq + freq_err){
+                        
+                        dac_value--;
+                        LMS_VCTCXOWrite(device, dac_value);
+                        LMS_VCTCXORead(device, &tmp_value);
+                        cout << "DAC = " << tmp_value << endl;
+                        dac_updated = true;
+                    }
+
+                    /* Increase Frequency */
+                    if(avg_freq < target_freq - freq_err){
+                        
+                        dac_value++;
+                        LMS_VCTCXOWrite(device, dac_value);
+                        LMS_VCTCXORead(device, &tmp_value);
+                        cout << "DAC = " << tmp_value << endl;
+                        dac_updated = true;
+                    }
+                } 
             }
         }
     }
