@@ -54,7 +54,7 @@ int main(int argc, char** argv){
     uint64_t prev_pps_sync_idx = 0;
 
     /* VCTCXO DAC Controller - 0 to 4095 -> 0v to 2.538v */
-    uint16_t dac_value = 3205;
+    uint16_t dac_value = 3202;
     uint16_t tmp_value = 0;
     
     double target_freq = 30720000;
@@ -66,7 +66,8 @@ int main(int argc, char** argv){
     const int ma_len = 10;
     uint64_t readings[ma_len];
     double avg_freq = 0;
-     
+    
+
     /* DAC Init */
     LMS_VCTCXORead(device, &tmp_value);
     cout << "DAC = " << tmp_value << endl;
