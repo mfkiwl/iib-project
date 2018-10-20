@@ -1,5 +1,5 @@
 Power Analyzer report for LimeSDR-Mini_lms7_trx
-Thu Oct 18 18:41:33 2018
+Sat Oct 20 17:03:53 2018
 Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
 
 
@@ -52,19 +52,19 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 12          ;
 ; Maximum allowed            ; 6           ;
 ;                            ;             ;
-; Average used               ; 2.13        ;
+; Average used               ; 2.14        ;
 ; Maximum used               ; 6           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-6         ;  22.6%      ;
+;     Processors 2-6         ;  22.8%      ;
 +----------------------------+-------------+
 
 
 +-------------------------------------------------------------------------------------------+
 ; Power Analyzer Summary                                                                    ;
 +----------------------------------------+--------------------------------------------------+
-; Power Analyzer Status                  ; Successful - Thu Oct 18 18:41:33 2018            ;
+; Power Analyzer Status                  ; Successful - Sat Oct 20 17:03:52 2018            ;
 ; Quartus Prime Version                  ; 18.0.0 Build 614 04/24/2018 SJ Lite Edition      ;
 ; Revision Name                          ; LimeSDR-Mini_lms7_trx                            ;
 ; Top-level Entity Name                  ; lms7_trx_top                                     ;
@@ -890,7 +890,7 @@ refer to the applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Power Analyzer
     Info: Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
-    Info: Processing started: Thu Oct 18 18:41:24 2018
+    Info: Processing started: Sat Oct 20 17:03:43 2018
 Info: Command: quartus_pow --read_settings_files=off --write_settings_files=off LimeSDR-Mini_lms7_trx -c LimeSDR-Mini_lms7_trx
 Info (21077): Low junction temperature is 0 degrees C
 Info (21077): High junction temperature is 85 degrees C
@@ -11030,8 +11030,8 @@ Info (218004): PLL "pll_top:inst7|altpll:altpll_inst3|pll_altpll:auto_generated|
 Info (215049): Average toggle rate for this design is 9.975 millions of transitions / sec
 Info (215031): Total thermal power estimate for the design is 916.21 mW
 Info: Quartus Prime Power Analyzer was successful. 0 errors, 13322 warnings
-    Info: Peak virtual memory: 4993 megabytes
-    Info: Processing ended: Thu Oct 18 18:41:34 2018
+    Info: Peak virtual memory: 4994 megabytes
+    Info: Processing ended: Sat Oct 20 17:03:53 2018
     Info: Elapsed time: 00:00:10
     Info: Total CPU time (on all processors): 00:00:19
 
