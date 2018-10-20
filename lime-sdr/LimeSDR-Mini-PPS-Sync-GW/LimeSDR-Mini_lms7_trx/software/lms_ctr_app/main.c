@@ -699,12 +699,14 @@ int main()
 								if (LMS_Ctrl_Packet_Rx->Data_field[1 + (block * 4)] == 0) //RAW units?
 								{
 									/* EDIT - 12 Bit DAC Upgrade*/
-									if(LMS_Ctrl_Packet_Rx->Data_field[2 + (block * 4)] != 0) //MSB byte non-zero?
-									{
-										dac_val_msb = LMS_Ctrl_Packet_Rx->Data_field[2 + (block * 4)];
-										dac_val_lsb = LMS_Ctrl_Packet_Rx->Data_field[3 + (block * 4)];
-										dac_val = (dac_val_msb << 8) | dac_val_lsb;
 
+									/* Extract MSB & LSB */
+									dac_val_msb = LMS_Ctrl_Packet_Rx->Data_field[2 + (block * 4)];
+									dac_val_lsb = LMS_Ctrl_Packet_Rx->Data_field[3 + (block * 4)];
+
+									if(((dac_val_msb << 8) | dac_val_lsb) < 4096) // Check range 0 to 4095
+									{
+										dac_val = ((dac_val_msb << 8) | dac_val_lsb);
 										dac_data[0] = (dac_val >> 6) & 0x3F; //POWER-DOWN MODE = NORMAL OPERATION (MSB bits =00) + MSB data
 										dac_data[1] = (dac_val << 2) & 0xFC; //LSB data
 

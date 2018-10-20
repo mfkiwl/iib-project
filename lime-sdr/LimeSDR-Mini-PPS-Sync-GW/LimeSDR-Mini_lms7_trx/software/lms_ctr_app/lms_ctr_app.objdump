@@ -1395,31 +1395,31 @@ Disassembly of section .text:
   1010b4:	10803fcc 	andi	r2,r2,255
   1010b8:	103dd71e 	bne	r2,zero,100818 <_gp+0xffef816c>
   1010bc:	d0201a05 	stb	zero,-32664(gp)
-  1010c0:	d0e00517 	ldw	r3,-32748(gp)
-  1010c4:	d0a01a03 	ldbu	r2,-32664(gp)
-  1010c8:	19000083 	ldbu	r4,2(r3)
-  1010cc:	1101812e 	bgeu	r2,r4,1016d4 <main+0x108c>
-  1010d0:	1085883a 	add	r2,r2,r2
+  1010c0:	0543ffc4 	movi	r21,4095
+  1010c4:	d0e00517 	ldw	r3,-32748(gp)
+  1010c8:	d0a01a03 	ldbu	r2,-32664(gp)
+  1010cc:	19000083 	ldbu	r4,2(r3)
+  1010d0:	1101802e 	bgeu	r2,r4,1016d4 <main+0x108c>
   1010d4:	1085883a 	add	r2,r2,r2
-  1010d8:	1887883a 	add	r3,r3,r2
-  1010dc:	18800203 	ldbu	r2,8(r3)
-  1010e0:	10001d1e 	bne	r2,zero,101158 <main+0xb10>
-  1010e4:	18800243 	ldbu	r2,9(r3)
-  1010e8:	10001b1e 	bne	r2,zero,101158 <main+0xb10>
-  1010ec:	19000283 	ldbu	r4,10(r3)
-  1010f0:	20803fcc 	andi	r2,r4,255
-  1010f4:	10001826 	beq	r2,zero,101158 <main+0xb10>
-  1010f8:	18c002c3 	ldbu	r3,11(r3)
-  1010fc:	1004923a 	slli	r2,r2,8
-  101100:	d1201945 	stb	r4,-32667(gp)
+  1010d8:	1085883a 	add	r2,r2,r2
+  1010dc:	1887883a 	add	r3,r3,r2
+  1010e0:	18800203 	ldbu	r2,8(r3)
+  1010e4:	10001c1e 	bne	r2,zero,101158 <main+0xb10>
+  1010e8:	18800243 	ldbu	r2,9(r3)
+  1010ec:	10001a1e 	bne	r2,zero,101158 <main+0xb10>
+  1010f0:	18800283 	ldbu	r2,10(r3)
+  1010f4:	18c002c3 	ldbu	r3,11(r3)
+  1010f8:	d0a01945 	stb	r2,-32667(gp)
+  1010fc:	10803fcc 	andi	r2,r2,255
+  101100:	1004923a 	slli	r2,r2,8
   101104:	d0e01905 	stb	r3,-32668(gp)
   101108:	18c03fcc 	andi	r3,r3,255
   10110c:	10c4b03a 	or	r2,r2,r3
-  101110:	1006d1ba 	srli	r3,r2,6
-  101114:	d0a00415 	stw	r2,-32752(gp)
-  101118:	01000834 	movhi	r4,32
-  10111c:	1085883a 	add	r2,r2,r2
-  101120:	18c00fcc 	andi	r3,r3,63
+  101110:	a8801116 	blt	r21,r2,101158 <main+0xb10>
+  101114:	1006d1ba 	srli	r3,r2,6
+  101118:	d0a00415 	stw	r2,-32752(gp)
+  10111c:	01000834 	movhi	r4,32
+  101120:	1085883a 	add	r2,r2,r2
   101124:	1085883a 	add	r2,r2,r2
   101128:	d8000215 	stw	zero,8(sp)
   10112c:	d8000115 	stw	zero,4(sp)
@@ -1439,7 +1439,7 @@ Disassembly of section .text:
   101164:	d0a01a03 	ldbu	r2,-32664(gp)
   101168:	10800044 	addi	r2,r2,1
   10116c:	d0a01a05 	stb	r2,-32664(gp)
-  101170:	003fd306 	br	1010c0 <_gp+0xffef8a14>
+  101170:	003fd406 	br	1010c4 <_gp+0xffef8a18>
   101174:	28c00243 	ldbu	r3,9(r5)
   101178:	29800343 	ldbu	r6,13(r5)
   10117c:	1808963a 	slli	r4,r3,24

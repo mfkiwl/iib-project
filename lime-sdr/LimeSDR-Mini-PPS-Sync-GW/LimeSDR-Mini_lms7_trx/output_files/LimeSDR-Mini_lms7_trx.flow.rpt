@@ -1,5 +1,5 @@
 Flow report for LimeSDR-Mini_lms7_trx
-Thu Oct 18 18:41:49 2018
+Sat Oct 20 17:04:09 2018
 Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
 
 
@@ -40,7 +40,7 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Thu Oct 18 18:41:49 2018       ;
+; Flow Status                        ; Successful - Sat Oct 20 17:04:09 2018       ;
 ; Quartus Prime Version              ; 18.0.0 Build 614 04/24/2018 SJ Lite Edition ;
 ; Revision Name                      ; LimeSDR-Mini_lms7_trx                       ;
 ; Top-level Entity Name              ; lms7_trx_top                                ;
@@ -66,7 +66,7 @@ refer to the applicable agreement for further details.
 +-------------------+-----------------------+
 ; Option            ; Setting               ;
 +-------------------+-----------------------+
-; Start date & time ; 10/18/2018 18:38:45   ;
+; Start date & time ; 10/20/2018 17:01:02   ;
 ; Main task         ; Compilation           ;
 ; Revision Name     ; LimeSDR-Mini_lms7_trx ;
 +-------------------+-----------------------+
@@ -79,7 +79,7 @@ refer to the applicable agreement for further details.
 +--------------------------------------+--------------------------------------------------------------------+-----------------------+---------------------+----------------+
 ; AUTO_GLOBAL_REGISTER_CONTROLS        ; Off                                                                ; On                    ; --                  ; --             ;
 ; AUTO_MERGE_PLLS                      ; Off                                                                ; On                    ; --                  ; --             ;
-; COMPILER_SIGNATURE_ID                ; 247207020763957.153988432410808                                    ; --                    ; --                  ; --             ;
+; COMPILER_SIGNATURE_ID                ; 247207020763957.154005126210508                                    ; --                    ; --                  ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT               ; Vhdl                                                               ; --                    ; --                  ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                  ; ModelSim-Altera (VHDL)                                             ; <None>                ; --                  ; --             ;
 ; ENABLE_SIGNALTAP                     ; Off                                                                ; --                    ; --                  ; --             ;
@@ -152,13 +152,13 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:01:11     ; 1.0                     ; 5184 MB             ; 00:01:26                           ;
-; Fitter               ; 00:01:15     ; 1.4                     ; 6102 MB             ; 00:02:38                           ;
+; Analysis & Synthesis ; 00:01:12     ; 1.0                     ; 5182 MB             ; 00:01:27                           ;
+; Fitter               ; 00:01:16     ; 1.4                     ; 6098 MB             ; 00:02:42                           ;
 ; Assembler            ; 00:00:02     ; 1.0                     ; 4757 MB             ; 00:00:02                           ;
-; Power Analyzer       ; 00:00:09     ; 2.1                     ; 4993 MB             ; 00:00:18                           ;
-; Timing Analyzer      ; 00:00:09     ; 2.5                     ; 4994 MB             ; 00:00:20                           ;
-; EDA Netlist Writer   ; 00:00:03     ; 1.0                     ; 4826 MB             ; 00:00:04                           ;
-; Total                ; 00:02:49     ; --                      ; --                  ; 00:04:48                           ;
+; Power Analyzer       ; 00:00:09     ; 2.1                     ; 4994 MB             ; 00:00:18                           ;
+; Timing Analyzer      ; 00:00:10     ; 2.5                     ; 4992 MB             ; 00:00:20                           ;
+; EDA Netlist Writer   ; 00:00:04     ; 1.0                     ; 4826 MB             ; 00:00:04                           ;
+; Total                ; 00:02:53     ; --                      ; --                  ; 00:04:53                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
