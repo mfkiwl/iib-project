@@ -55,7 +55,6 @@ int main(int argc, char** argv){
 
     /* VCTCXO DAC Controller - 0 to 4095 -> 0v to 2.538v */
     uint16_t dac_value = 3229;
-    uint16_t tmp_value = 0;
     
     double target_freq = 30720000;
     double freq_err = 0.25; 
@@ -69,12 +68,10 @@ int main(int argc, char** argv){
     
 
     /* DAC Init */
-    LMS_VCTCXORead(device, &tmp_value);
-    cout << "DAC = " << tmp_value << endl;
     cout << "Writing " << dac_value << " to DAC..." <<endl;
     LMS_VCTCXOWrite(device, dac_value);
-    LMS_VCTCXORead(device, &tmp_value);
-    cout << "DAC = " << tmp_value << endl;
+    LMS_VCTCXORead(device, &dac_value);
+    cout << "DAC = " << dac_value << endl;
 
     /* Start streaming */
     LMS_StartStream(&rx_stream);
@@ -82,7 +79,7 @@ int main(int argc, char** argv){
     /* Process Stream for 300s */
     auto t1 = chrono::high_resolution_clock::now();
     auto t2 = t1;
-    while (chrono::high_resolution_clock::now() - t1 < chrono::seconds(300)){
+    while (chrono::high_resolution_clock::now() - t1 < chrono::seconds(600)){
 
         /* Read Samples into Buffer */
         if(LMS_RecvStream(&rx_stream, rx_buffer, num_rx_samples, &rx_metadata, 1000) != num_rx_samples){
@@ -159,8 +156,8 @@ int main(int argc, char** argv){
                         
                         dac_value--;
                         LMS_VCTCXOWrite(device, dac_value);
-                        LMS_VCTCXORead(device, &tmp_value);
-                        cout << "DAC = " << tmp_value << endl;
+                        LMS_VCTCXORead(device, &dac_value);
+                        cout << "DAC = " << dac_value << endl;
                         dac_updated = true;
                     }
 
@@ -169,8 +166,8 @@ int main(int argc, char** argv){
                         
                         dac_value++;
                         LMS_VCTCXOWrite(device, dac_value);
-                        LMS_VCTCXORead(device, &tmp_value);
-                        cout << "DAC = " << tmp_value << endl;
+                        LMS_VCTCXORead(device, &dac_value);
+                        cout << "DAC = " << dac_value << endl;
                         dac_updated = true;
                     }
                 } 
