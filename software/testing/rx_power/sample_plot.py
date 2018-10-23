@@ -38,6 +38,15 @@ for n in range(0, num_samples):
 # Creat Complex Array
 samples = (I + 1j*Q)
 
+# Find Signal Power
+power_i = np.mean(np.square(I))
+power_q = np.mean(np.square(Q))
+peak_i = np.max(np.abs(I))
+peak_q = np.max(np.abs(Q))
+
+print("I Power = ", power_i, "\nQ Power = ", power_q)
+print("I Peak = ", peak_i, "\nQ Peak = ", peak_q)
+
 # Plot I&Q Channels
 plt.plot(np.real(samples[0:1360]), label='I')
 plt.plot(np.imag(samples[0:1360]), label='Q')

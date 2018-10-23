@@ -32,10 +32,11 @@ for i = 1:1:1000
     
     % Add noise to times
     T = 1/(30.72e6);
-    t1_n = T*round((t1 + normrnd(0, 11.17e-9))/T);
-    t2_n = T*round((t2 + normrnd(0, 11.17e-9))/T);
-    t3_n = T*round((t3 + normrnd(0, 11.17e-9))/T);
-    t4_n = T*round((t4 + normrnd(0, 11.17e-9))/T);
+    drift = 753e-9;
+    t1_n = T*round((t1 + drift + normrnd(0, 11.17e-9))/T);
+    t2_n = T*round((t2 + drift + normrnd(0, 11.17e-9))/T);
+    t3_n = T*round((t3 + drift + normrnd(0, 11.17e-9))/T);
+    t4_n = T*round((t4 + drift + normrnd(0, 11.17e-9))/T);
     t_n = [t1_n, t2_n, t3_n, t4_n];
     
     % Compute Position
@@ -44,17 +45,17 @@ for i = 1:1:1000
 end
 
 
-% Histogram Error
-figure
-hist(err(1,:))
-title('X Co-ordinate Error')
-xlabel('Error (m)')
-
-figure
-hist(err(2,:))
-title('Y Co-ordinate Error')
-xlabel('Error (m)')
-
+% % Histogram Error
+% figure
+% hist(err(1,:))
+% title('X Co-ordinate Error')
+% xlabel('Error (m)')
+% 
+% figure
+% hist(err(2,:))
+% title('Y Co-ordinate Error')
+% xlabel('Error (m)')
+% 
 figure
 hist(err(3,:))
 title('Z Co-ordinate Error')
