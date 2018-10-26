@@ -1,0 +1,57 @@
+Bill Of Materials
+=================
+
+Source file: lna.xml
+Date: 2018-10-26T20:57:12.624064
+
+Parts Missing Footprints
+------------------------
+
+
+Parts Missing Order Codes
+-------------------------
+
+
+Inconsistent Order Codes
+------------------------
+  Farnell
+  ~~~~~~~
+    1608592: 
+      P1     RF IN           agg:SMA-EDGE
+      P2     RF OUT          agg:SMA-EDGE
+
+Vendor Specific BOMs
+--------------------
+  Minicircuits
+  ~~~~~~~~~~~~
+BFCN-2450+,1,1x F1 FV1206-4
+CMA-83LN+,1,1x IC1 DL1721
+
+
+  Mouser
+  ~~~~~~
+994-0402CS-39NXGLW,1,1x L2 0402
+80-C0402C100K5RACTU,1,1x C1 0402
+80-C0402T103K4RACTU,1,1x C2 0402
+581-0402YC101M,1,1x C3 0402
+81-LQG15HS18NJ02D,1,1x L1 0402
+
+
+  Farnell
+  ~~~~~~~
+1608592,2,2x RF IN RF OUT SMA-EDGE
+1568023,1,1x MICROUSB MICROUSB_MOLEX_475
+
+
+Assembly BOM
+------------
+BFCN-2450+           1   BFCN-2450+      FV1206-4        F1
+CMA-83LN+            1   CMA-83LN+       DL1721          IC1
+994-0402CS-39NXGLW   1   39n             0402            L2
+80-C0402C100K5RACTU  1   10p             0402            C1
+80-C0402T103K4RACTU  1   0.01u           0402            C2
+581-0402YC101M       1   100p            0402            C3
+81-LQG15HS18NJ02D    1   18n             0402            L1
+1608592              2   RF IN,RF OUT    SMA-EDGE        P1 P2
+1568023              1   MICROUSB        MICROUSB_MOLEX_47589-0001 J1
+
