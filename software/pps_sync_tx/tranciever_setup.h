@@ -10,7 +10,7 @@ class tranciever_configuration {
         /* RX Parameters */
         float_type rx_centre_frequency;
         size_t rx_antenna;
-        float_type rx_gain;
+        unsigned int rx_gain;
         bool enable_rx_LPF;
         float_type rx_LPF_bandwidth;
         bool enable_rx_cal;
@@ -19,7 +19,7 @@ class tranciever_configuration {
         /* TX Parameters */        
         float_type tx_centre_frequency;
         size_t tx_antenna;
-        float_type tx_gain;
+        unsigned int tx_gain;
         bool enable_tx_LPF;
         float_type tx_LPF_bandwidth;
         bool enable_tx_cal;

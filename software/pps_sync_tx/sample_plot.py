@@ -26,7 +26,7 @@ meta = struct.unpack('QQQ', file.read(24))
 print(datetime.utcfromtimestamp(meta[0]).strftime('%Y-%m-%d %H:%M:%S'))
 print("File begins with sample", meta[1])
 print("PPS sync occured at sample", meta[2])
-tx_start =  meta[2] + 1360*575
+tx_start =  meta[2] + 1360*175
 offset = tx_start - meta[1]
 print("TX begins at sample", tx_start)
 print("Offset = ", offset)

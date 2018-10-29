@@ -129,15 +129,9 @@ int configure_tranciever(tranciever_configuration tx_rx_config){
     
     /*  RX GAIN SELECTION  */
 
-    /* Set RX Gain - 0 to 1.0 */
-    if (LMS_SetNormalizedGain(device, LMS_CH_RX, 0, tx_rx_config.rx_gain) != 0)
+    /* Set RX Gain - 0 to 73dB */
+    if (LMS_SetGaindB(device, LMS_CH_RX, 0, tx_rx_config.rx_gain) != 0)
         error();
-
-    /* Print Normalised RX Gain */
-    float_type gain;
-    if (LMS_GetNormalizedGain(device, LMS_CH_RX, 0, &gain) != 0)
-        error();
-    cout << "Normalized RX Gain: " << gain << endl;
 
     /* Print Resulting RX Gain in dB */
     unsigned int gaindB;
@@ -148,16 +142,11 @@ int configure_tranciever(tranciever_configuration tx_rx_config){
 
     /*  TX GAIN SELECTION  */
 
-    /* Set TX Gain - 0 to 1.0 */
-    if (LMS_SetNormalizedGain(device, LMS_CH_TX, 0, tx_rx_config.tx_gain) != 0)
+    /* Set TX Gain - 0 to 73dB */
+    if (LMS_SetGaindB(device, LMS_CH_TX, 0, tx_rx_config.tx_gain) != 0)
         error();
 
-    /* Print Normalised TX Gain */
-    if (LMS_GetNormalizedGain(device, LMS_CH_TX, 0, &gain) != 0)
-        error();
-    cout << "Normalized TX Gain: " << gain << endl;
-
-     /* Print Resulting TX Gain in dB */
+    /* Print Resulting TX Gain in dB */
     if (LMS_GetGaindB(device, LMS_CH_TX, 0, &gaindB) != 0)
         error();
     cout << "TX Gain: " << gaindB << " dB" << endl;

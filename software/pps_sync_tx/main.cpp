@@ -17,17 +17,17 @@ int main(int argc, char** argv){
     
     /* Hardware Config */
     tranciever_configuration config;
-    config.rx_centre_frequency = 868e6;                 // RX Center Freuency    
-    config.rx_antenna = LMS_PATH_LNAW;                  // RX RF Path = 10MHz - 2GHz
-    config.rx_gain = 0.7;                               // RX Normalised Gain - 0 to 1.0
+    config.rx_centre_frequency = 2.4e9;                 // RX Center Freuency    
+    config.rx_antenna = LMS_PATH_LNAH;                  // RX RF Path = 2GHz - 3GHz
+    config.rx_gain = 40;                                // RX Gain 0 to 73 dB
     config.enable_rx_LPF = true;                        // Enable RX Low Pass Filter
     config.rx_LPF_bandwidth = 10e6;                     // RX Analog Low Pass Filter Bandwidth
     config.enable_rx_cal = true;                        // Enable RX Calibration
     config.rx_cal_bandwidth = 8e6;                      // Automatic Calibration Bandwidth
     
-    config.tx_centre_frequency = 868e6;                 // TX Center Freuency
-    config.tx_antenna = LMS_PATH_TX2;                   // TX RF Path = 10MHz - 2GHz
-    config.tx_gain = 0.4;                               // TX Normalised Gain - 0 to 1.0
+    config.tx_centre_frequency = 2.4e9;                 // TX Center Freuency
+    config.tx_antenna = LMS_PATH_TX1;                   // TX RF Path = 2GHz - 3GHz
+    config.tx_gain = 50;                                // TX Gain 0 to 73 dB
     config.enable_tx_LPF = true;                        // Enable TX Low Pass Filter
     config.tx_LPF_bandwidth = 10e6;                     // TX Analog Low Pass Filter Bandwidth
     config.enable_tx_cal = true;                        // Enable TX Calibration
@@ -135,10 +135,10 @@ int main(int argc, char** argv){
                 
                 /* UNIQUE PPS EVENT DETCETED */
 
-                tx_schedule_event = curr_buff_idx + 1360 * 500;         // Send TX samples in 500 buffers time
-                tx_capture_event = curr_buff_idx + 1360 * (575 - 15);   // Begin recording ~15 buffers prior to TX
-                tx_start_event = pps_sync_idx + 1360 * 575;             // TX scheduled for 782 000 samples after PPS
-                tx_stop_event = curr_buff_idx + 1360 * (575 + 15);      // Close TX stream ~15 buffers after start of TX
+                tx_schedule_event = curr_buff_idx + 1360 * 100;         // Send TX samples in 100 buffers time
+                tx_capture_event = curr_buff_idx + 1360 * (175 - 15);   // Begin recording ~15 buffers prior to TX
+                tx_start_event = pps_sync_idx + 1360 * 175;             // TX scheduled for 20400 samples after PPS
+                tx_stop_event = curr_buff_idx + 1360 * (175 + 15);      // Close TX stream ~15 buffers after start of TX
    
                 cout << "\nCurrent buffer = " << curr_buff_idx << endl;
                 cout << "PPS event occured at " << pps_sync_idx << endl;
