@@ -20,7 +20,7 @@ int main(int argc, char** argv){
     config.rx_centre_frequency = 2.4e9;                 // RX Center Freuency    
     config.rx_antenna = LMS_PATH_LNAH;                  // RX RF Path = 2GHz - 3GHz
     config.rx_gain = 40;                                // RX Gain 0 to 73 dB
-    config.enable_rx_LPF = true;                        // Enable RX Low Pass Filter
+    config.enable_rx_LPF = false;                        // Enable RX Low Pass Filter
     config.rx_LPF_bandwidth = 10e6;                     // RX Analog Low Pass Filter Bandwidth
     config.enable_rx_cal = true;                        // Enable RX Calibration
     config.rx_cal_bandwidth = 8e6;                      // Automatic Calibration Bandwidth
@@ -28,7 +28,7 @@ int main(int argc, char** argv){
     config.tx_centre_frequency = 2.4e9;                 // TX Center Freuency
     config.tx_antenna = LMS_PATH_TX1;                   // TX RF Path = 2GHz - 3GHz
     config.tx_gain = 50;                                // TX Gain 0 to 73 dB
-    config.enable_tx_LPF = true;                        // Enable TX Low Pass Filter
+    config.enable_tx_LPF = false;                        // Enable TX Low Pass Filter
     config.tx_LPF_bandwidth = 10e6;                     // TX Analog Low Pass Filter Bandwidth
     config.enable_tx_cal = true;                        // Enable TX Calibration
     config.tx_cal_bandwidth = 8e6;                      // Automatic Calibration Bandwidth
@@ -80,12 +80,12 @@ int main(int argc, char** argv){
     tx_metadata.flushPartialPacket = true;             // Force sending of incomplete packets
     tx_metadata.waitForTimestamp = true;               // Enable synchronization to HW timestamp
      
-    /* Generate 1 MHz Test Signal */
-     for (int i = 0; i <num_tx_samples; i++) {
-        const double pi = acos(-1);
-        double w = 2*pi*i*(1e6)/config.sample_rate;
-        tx_buffer[2*i] = (int16_t)(cos(w)*1000);
-        tx_buffer[2*i+1] = (int16_t)(sin(w)*1000);
+    /* Read Waveform */
+    ifstream wfm_file; 
+    wfm_file.open("wfm.bin", ios::binary | ios::in);
+    for(int i = 0; i <num_tx_samples; i++) {
+        wfm_file.read((char*)&tx_buffer[2*i], sizeof(int16_t));
+        wfm_file.read((char*)&tx_buffer[(2*i)+1], sizeof(int16_t));
     }
 
     /* Output File */
@@ -209,13 +209,7 @@ int main(int argc, char** argv){
         error();
     if (LMS_EnableChannel(device, LMS_CH_RX, 0, false)!=0)
         error();
-    
-    /* Write Waveform to File */
-    ofstream wfm;
-    wfm.open("wfm.bin", std::ofstream::binary);
-    wfm.write((char*)tx_buffer, sizeof(tx_buffer));
-    wfm.close();
-    
+       
     /* Close Device */
     if (LMS_Close(device)==0)
         cout << "Device closed" << endl;
