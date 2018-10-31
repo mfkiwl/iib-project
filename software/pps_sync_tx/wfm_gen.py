@@ -13,8 +13,8 @@ L = 10880
 t = np.linspace(0, (L-1)*T, L)
 
 # Generate Signal - 10kHz to 1MHz Chirp
-f0 = 10e3
-f1 = 1e6
+f0 = 1e6
+f1 = 15e6
 t1 = L*T
 x = signal.chirp(t, f0, t1, f1, method='linear', phi=0)
 y = signal.chirp(t, f0, t1, f1, method='linear', phi=90)
