@@ -24,10 +24,10 @@ This program produces an output file each second that contains a header followed
 ### pps_tx_sync
 This program transmitts a buffer of samples once per second, with the transmission occuring a predefined number of samples after the PPS event. Assuming there is some external loopback path the program also records the TX event and writes this out to file, along with the relevant metadata. The baseband waveform to be sent can be generated using the included python script and the C++ application will load this data into the TX buffer each time it runs. There is also a script to plot the recieved samples and cross correlate this with the original signal.
 
-## vctcxo
+### vctcxo
 This program demonstrates tuning the onboard VCTCXO against an external PPS reference.
 
-## rx_power
+### rx_power
 This program records a bunch of samples from the SDR at a gain defined by the user and then computes the power of the recieved signal in lime units. This program was used to characterise the relationship between the signal power in lime units and dBm.
 
 ### tx_testing
