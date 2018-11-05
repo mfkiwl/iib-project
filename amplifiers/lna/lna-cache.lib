@@ -1,11 +1,11 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# agg-kicad:5v
+# agg-kicad_5v
 #
-DEF agg-kicad:5v #PWR 0 40 N N 1 F P
+DEF agg-kicad_5v #PWR 0 40 N N 1 F P
 F0 "#PWR" 0 110 50 H I L CNN
-F1 "agg-kicad:5v" 0 90 50 H V C CNN
+F1 "agg-kicad_5v" 0 90 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -15,11 +15,11 @@ X 5v 1 0 0 0 L 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# agg-kicad:BFCN-2450+
+# agg-kicad_BFCN-2450+
 #
-DEF agg-kicad:BFCN-2450+ F 0 40 Y Y 1 F N
+DEF agg-kicad_BFCN-2450+ F 0 40 Y Y 1 F N
 F0 "F" -200 200 50 H V L CNN
-F1 "agg-kicad:BFCN-2450+" -200 -200 50 H V L CNN
+F1 "agg-kicad_BFCN-2450+" -200 -200 50 H V L CNN
 F2 "agg:FV1206-4" -200 -300 50 H I L CNN
 F3 "https://ww2.minicircuits.com/pdfs/BFCN-2450+.pdf" -200 -400 50 H I L CNN
 F4 "BFCN-2450+" -200 -500 50 H I L CNN "Minicircuits"
@@ -32,11 +32,11 @@ X GND 4 300 0 100 L 50 50 0 0 W
 ENDDRAW
 ENDDEF
 #
-# agg-kicad:C
+# agg-kicad_C
 #
-DEF agg-kicad:C C 0 40 N N 1 F N
+DEF agg-kicad_C C 0 40 N N 1 F N
 F0 "C" 50 70 50 H V C CNN
-F1 "agg-kicad:C" 50 -70 50 H V C CNN
+F1 "agg-kicad_C" 50 -70 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -47,33 +47,11 @@ X ~ 2 100 0 40 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# agg-kicad:CMA-83LN+
+# agg-kicad_COAX
 #
-DEF agg-kicad:CMA-83LN+ IC 0 40 Y Y 1 F N
-F0 "IC" -400 300 50 H V L CNN
-F1 "agg-kicad:CMA-83LN+" -400 -300 50 H V L CNN
-F2 "agg:DL1721" -400 -400 50 H I L CNN
-F3 "https://ww2.minicircuits.com/pdfs/CMA-83LN+.pdf" -400 -500 50 H I L CNN
-F4 "CMA-83LN+" -400 -600 50 H I L CNN "Minicircuits"
-DRAW
-S -400 250 400 -250 0 1 0 f
-X GND 1 -500 100 100 R 50 50 0 0 W
-X RF_IN 2 -500 200 100 R 50 50 0 0 I
-X GND 3 -500 0 100 R 50 50 0 0 W
-X NC 4 500 100 100 L 50 50 0 0 W
-X GND 5 -500 -100 100 R 50 50 0 0 W
-X GND 6 500 0 100 L 50 50 0 0 W
-X RF_OUT 7 500 200 100 L 50 50 0 0 O
-X GND 8 500 -100 100 L 50 50 0 0 W
-X GND EP -500 -200 100 R 50 50 0 0 W
-ENDDRAW
-ENDDEF
-#
-# agg-kicad:COAX
-#
-DEF agg-kicad:COAX P 0 40 N N 1 F N
+DEF agg-kicad_COAX P 0 40 N N 1 F N
 F0 "P" 0 100 50 H V C CNN
-F1 "agg-kicad:COAX" 0 -150 50 H V C CNN
+F1 "agg-kicad_COAX" 0 -150 50 H V C CNN
 F2 "agg:SMA-EDGE" 0 -210 50 H I C CNN
 F3 "" 100 -100 50 H I C CNN
 F4 "1608592" 0 -280 50 H I C CNN "Farnell"
@@ -86,11 +64,11 @@ X GND 2 -100 -100 100 R 50 50 1 1 W
 ENDDRAW
 ENDDEF
 #
-# agg-kicad:GND
+# agg-kicad_GND
 #
-DEF agg-kicad:GND #PWR 0 40 N N 1 F P
+DEF agg-kicad_GND #PWR 0 40 N N 1 F P
 F0 "#PWR" -130 40 50 H I L CNN
-F1 "agg-kicad:GND" 0 -100 50 H V C CNN
+F1 "agg-kicad_GND" 0 -100 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -100,11 +78,11 @@ X GND 1 0 0 0 L 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# agg-kicad:L
+# agg-kicad_L
 #
-DEF agg-kicad:L L 0 40 N N 1 F N
+DEF agg-kicad_L L 0 40 N N 1 F N
 F0 "L" 50 50 50 H V C CNN
-F1 "agg-kicad:L" 50 -50 50 H V C CNN
+F1 "agg-kicad_L" 50 -50 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -116,11 +94,11 @@ X ~ 2 100 0 20 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# agg-kicad:MICROUSB
+# agg-kicad_MICROUSB
 #
-DEF agg-kicad:MICROUSB J 0 40 Y Y 1 F N
+DEF agg-kicad_MICROUSB J 0 40 Y Y 1 F N
 F0 "J" -150 300 50 H V L CNN
-F1 "agg-kicad:MICROUSB" -150 -400 50 H V L CNN
+F1 "agg-kicad_MICROUSB" -150 -400 50 H V L CNN
 F2 "agg:MICROUSB_MOLEX_47589-0001" -150 -500 50 H I L CNN
 F3 "" 300 200 50 H I C CNN
 F4 "1568023" -150 -600 50 H I L CNN "Farnell"
@@ -135,15 +113,41 @@ X SHIELD S 300 -300 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# agg-kicad:PART
+# agg-kicad_PART
 #
-DEF agg-kicad:PART X 0 40 Y Y 1 F N
+DEF agg-kicad_PART X 0 40 Y Y 1 F N
 F0 "X" 50 100 50 H V L CNN
-F1 "agg-kicad:PART" 50 0 50 H V L CNN
+F1 "agg-kicad_PART" 50 0 50 H V L CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
 S 0 150 500 -50 0 1 0 f
+ENDDRAW
+ENDDEF
+#
+# agg-kicad_PMA3-83LN+
+#
+DEF agg-kicad_PMA3-83LN+ IC 0 40 Y Y 1 F N
+F0 "IC" -400 400 50 H V L CNN
+F1 "agg-kicad_PMA3-83LN+" -400 -400 50 H V L CNN
+F2 "agg:DQ1225" -400 -500 50 H I L CNN
+F3 "https://ww2.minicircuits.com/pdfs/PMA3-83LN+.pdf" -400 -600 50 H I L CNN
+F4 "PMA3-83LN+" -400 -700 50 H I L CNN "Minicircuits"
+DRAW
+S -400 350 400 -350 0 1 0 f
+X NC 1 -500 100 100 R 50 50 0 0 W
+X NC 10 500 0 100 L 50 50 0 0 W
+X NC 11 500 -100 100 L 50 50 0 0 N
+X NC 12 500 -200 100 L 50 50 0 0 N
+X RF_IN 2 -500 300 100 R 50 50 0 0 I
+X NC 3 -500 0 100 R 50 50 0 0 W
+X NC 4 -500 -100 100 R 50 50 0 0 W
+X NC 5 -500 -200 100 R 50 50 0 0 W
+X NC 6 -500 -300 100 R 50 50 0 0 W
+X NC 7 500 200 100 L 50 50 0 0 W
+X RF_OUT 8 500 300 100 L 50 50 0 0 O
+X NC 9 500 100 100 L 50 50 0 0 W
+X GND EP -500 200 100 R 50 50 0 0 W
 ENDDRAW
 ENDDEF
 #

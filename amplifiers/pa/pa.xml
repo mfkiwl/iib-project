@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>/home/matt/Documents/iib-project/amplifiers/pa/pa.sch</source>
+    <date>Mon 05 Nov 2018 04:32:50 PM GMT</date>
+    <tool>Eeschema 5.0.1-33cea8e~68~ubuntu16.04.1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>pa.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="J1">
+      <value>PWR</value>
+      <libsource lib="agg-kicad" part="CONN_01x02" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BE11485</tstamp>
+    </comp>
+    <comp ref="P1">
+      <value>RF IN</value>
+      <footprint>agg:SMA-EDGE</footprint>
+      <fields>
+        <field name="Farnell">1608592</field>
+      </fields>
+      <libsource lib="agg-kicad" part="COAX" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BE1168E</tstamp>
+    </comp>
+    <comp ref="P2">
+      <value>RF OUT</value>
+      <footprint>agg:SMA-EDGE</footprint>
+      <fields>
+        <field name="Farnell">1608592</field>
+      </fields>
+      <libsource lib="agg-kicad" part="COAX" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BE1182C</tstamp>
+    </comp>
+    <comp ref="IC1">
+      <value>PHA-202+</value>
+      <footprint>agg:DL1636</footprint>
+      <datasheet>https://ww2.minicircuits.com/pdfs/PHA-202+.pdf</datasheet>
+      <fields>
+        <field name="Minicircuits">PHA-202+</field>
+      </fields>
+      <libsource lib="agg-kicad" part="PHA-202+" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BE11B15</tstamp>
+    </comp>
+    <comp ref="C1">
+      <value>0.01u</value>
+      <footprint>agg:0402</footprint>
+      <fields>
+        <field name="Mouser">80-C0402T103K4RACTU</field>
+      </fields>
+      <libsource lib="agg-kicad" part="C" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BE11CB7</tstamp>
+    </comp>
+    <comp ref="L1">
+      <value>5.6u</value>
+      <datasheet>https://www.coilcraft.com/pdfs/wa8514.pdf</datasheet>
+      <libsource lib="agg-kicad" part="L" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BE11D3F</tstamp>
+    </comp>
+    <comp ref="C3">
+      <value>0.01u</value>
+      <footprint>agg:0402</footprint>
+      <fields>
+        <field name="Mouser">80-C0402T103K4RACTU</field>
+      </fields>
+      <libsource lib="agg-kicad" part="C" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BE1393B</tstamp>
+    </comp>
+    <comp ref="C2">
+      <value>0.01u</value>
+      <footprint>agg:0402</footprint>
+      <fields>
+        <field name="Mouser">80-C0402T103K4RACTU</field>
+      </fields>
+      <libsource lib="agg-kicad" part="C" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BE144C5</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="agg-kicad" part="C">
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="agg-kicad" part="COAX">
+      <fields>
+        <field name="Reference">P</field>
+        <field name="Value">COAX</field>
+        <field name="Footprint">agg:SMA-EDGE</field>
+        <field name="Farnell">1608592</field>
+      </fields>
+      <pins>
+        <pin num="1" name="RF" type="BiDi"/>
+        <pin num="2" name="GND" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="agg-kicad" part="CONN_01x02">
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">CONN_01x02</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="agg-kicad" part="L">
+      <fields>
+        <field name="Reference">L</field>
+        <field name="Value">L</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="agg-kicad" part="PHA-202+">
+      <fields>
+        <field name="Reference">IC</field>
+        <field name="Value">PHA-202+</field>
+        <field name="Footprint">agg:DL1636</field>
+        <field name="Datasheet">https://ww2.minicircuits.com/pdfs/PHA-202+.pdf</field>
+        <field name="Minicircuits">PHA-202+</field>
+      </fields>
+      <pins>
+        <pin num="1" name="NC" type="power_in"/>
+        <pin num="2" name="RF_IN" type="input"/>
+        <pin num="3" name="NC" type="power_in"/>
+        <pin num="4" name="NC" type="power_in"/>
+        <pin num="5" name="NC" type="power_in"/>
+        <pin num="6" name="NC" type="power_in"/>
+        <pin num="7" name="RF_OUT" type="output"/>
+        <pin num="8" name="NC" type="power_in"/>
+        <pin num="EP" name="GND" type="power_in"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="agg-kicad">
+      <uri>/home/matt/Documents/agg-kicad/agg-kicad.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="Net-(C1-Pad2)">
+      <node ref="IC1" pin="2"/>
+      <node ref="C1" pin="2"/>
+    </net>
+    <net code="2" name="GND">
+      <node ref="J1" pin="2"/>
+      <node ref="C2" pin="2"/>
+      <node ref="P1" pin="2"/>
+      <node ref="P2" pin="2"/>
+      <node ref="IC1" pin="6"/>
+      <node ref="IC1" pin="8"/>
+      <node ref="IC1" pin="5"/>
+      <node ref="IC1" pin="4"/>
+      <node ref="IC1" pin="3"/>
+      <node ref="IC1" pin="1"/>
+      <node ref="IC1" pin="EP"/>
+    </net>
+    <net code="3" name="Net-(C1-Pad1)">
+      <node ref="P1" pin="1"/>
+      <node ref="C1" pin="1"/>
+    </net>
+    <net code="4" name="12v">
+      <node ref="C2" pin="1"/>
+      <node ref="L1" pin="1"/>
+      <node ref="J1" pin="1"/>
+    </net>
+    <net code="5" name="Net-(C3-Pad2)">
+      <node ref="P2" pin="1"/>
+      <node ref="C3" pin="2"/>
+    </net>
+    <net code="6" name="Net-(C3-Pad1)">
+      <node ref="L1" pin="2"/>
+      <node ref="C3" pin="1"/>
+      <node ref="IC1" pin="7"/>
+    </net>
+  </nets>
+</export>

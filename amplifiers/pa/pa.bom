@@ -1,0 +1,47 @@
+Bill Of Materials
+=================
+
+Source file: pa.xml
+Date: 2018-11-05T16:32:50.139306
+
+Parts Missing Footprints
+------------------------
+J1     PWR            
+L1     5.6u           
+
+Parts Missing Order Codes
+-------------------------
+J1     PWR             None
+L1     5.6u            None
+
+Inconsistent Order Codes
+------------------------
+  Farnell
+  ~~~~~~~
+    1608592: 
+      P1     RF IN           agg:SMA-EDGE
+      P2     RF OUT          agg:SMA-EDGE
+
+Vendor Specific BOMs
+--------------------
+  Minicircuits
+  ~~~~~~~~~~~~
+PHA-202+,1,1x IC1 DL1636
+
+
+  Mouser
+  ~~~~~~
+80-C0402T103K4RACTU,3,3x C1 C3 C2 0402
+
+
+  Farnell
+  ~~~~~~~
+1608592,2,2x RF IN RF OUT SMA-EDGE
+
+
+Assembly BOM
+------------
+PHA-202+             1   PHA-202+        DL1636          IC1
+80-C0402T103K4RACTU  3   0.01u           0402            C1 C2 C3
+1608592              2   RF IN,RF OUT    SMA-EDGE        P1 P2
+
