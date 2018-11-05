@@ -2,7 +2,7 @@
 <export version="D">
   <design>
     <source>/home/matt/Documents/iib-project/amplifiers/pa/pa.sch</source>
-    <date>Mon 05 Nov 2018 04:32:50 PM GMT</date>
+    <date>Mon 05 Nov 2018 10:28:50 PM GMT</date>
     <tool>Eeschema 5.0.1-33cea8e~68~ubuntu16.04.1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -21,6 +21,10 @@
   <components>
     <comp ref="J1">
       <value>PWR</value>
+      <footprint>agg:B02B-PASK</footprint>
+      <fields>
+        <field name="RS">512-8585</field>
+      </fields>
       <libsource lib="agg-kicad" part="CONN_01x02" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5BE11485</tstamp>
@@ -68,6 +72,7 @@
     </comp>
     <comp ref="L1">
       <value>5.6u</value>
+      <footprint>agg:WA8514-AE</footprint>
       <datasheet>https://www.coilcraft.com/pdfs/wa8514.pdf</datasheet>
       <libsource lib="agg-kicad" part="L" description=""/>
       <sheetpath names="/" tstamps="/"/>
@@ -92,6 +97,20 @@
       <libsource lib="agg-kicad" part="C" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5BE144C5</tstamp>
+    </comp>
+    <comp ref="X1">
+      <value>M3 Hole</value>
+      <footprint>agg:M3_MOUNT</footprint>
+      <libsource lib="agg-kicad" part="PART" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BE16733</tstamp>
+    </comp>
+    <comp ref="X2">
+      <value>M3 Hole</value>
+      <footprint>agg:M3_MOUNT</footprint>
+      <libsource lib="agg-kicad" part="PART" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BE16817</tstamp>
     </comp>
   </components>
   <libparts>
@@ -136,6 +155,12 @@
         <pin num="1" name="~" type="passive"/>
         <pin num="2" name="~" type="passive"/>
       </pins>
+    </libpart>
+    <libpart lib="agg-kicad" part="PART">
+      <fields>
+        <field name="Reference">X</field>
+        <field name="Value">PART</field>
+      </fields>
     </libpart>
     <libpart lib="agg-kicad" part="PHA-202+">
       <fields>
