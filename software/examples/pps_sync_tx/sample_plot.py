@@ -77,8 +77,8 @@ plt.legend(loc='upper right', frameon=True)
 
 
 # Compute Cross Correlation
-c = signal.correlate(np.asarray(np.real(samples)), np.asarray(np.real(waveform)), 'same')
-c2 = signal.correlate(np.asarray(np.imag(samples)), np.asarray(np.imag(waveform)), 'same')
+c = np.absolute(signal.correlate(np.asarray(np.real(samples)), np.asarray(np.real(waveform)), 'same'))
+c2 = np.absolute(signal.correlate(np.asarray(np.imag(samples)), np.asarray(np.imag(waveform)), 'same'))
 
 # Plot Output
 f,axarr = plt.subplots(2, sharex=True)

@@ -18,20 +18,11 @@ wfm_file = open('wfm.bin', 'rb')
 sample_file.read()
 num_samples = int((sample_file.tell()-24)/4)
 sample_file.seek(0)
-#print("File contains", num_samples, "samples (%d buffers)" % int(num_samples/1360))
-dur = (1/30.72)*num_samples
-#print("Duration: %.4f us" % dur)
-#print("")
 
 # Read Sample Metadata
 meta = struct.unpack('QQQ', sample_file.read(24))
-#print(datetime.utcfromtimestamp(meta[0]).strftime('%Y-%m-%d %H:%M:%S'))
-#print("File begins with sample", meta[1])
-#print("PPS sync occured at sample", meta[2])
 tx_start =  meta[2] + 1360*600
 offset = tx_start - meta[1]
-#print("TX begins at sample", tx_start)
-#print("Offset = ", offset)
 
 # Extract I and Q Channels
 smp_I = np.zeros(num_samples, dtype=float)
@@ -43,7 +34,6 @@ for n in range(0, num_samples):
 
 # Complex Sample Array
 samples = (smp_I + 1j*smp_Q)
-
 
 # Read in Waveform
 wfm_file.read()
@@ -59,26 +49,11 @@ for n in range(0, wfm_samples):
 # Complex Waveform Array
 waveform = (wfm_I + 1j*wfm_Q)
 
-
 # Compute Cross Correlation
-c = signal.correlate(np.asarray(np.real(samples)), np.asarray(np.real(waveform)), 'same')
-c2 = signal.correlate(np.asarray(np.imag(samples)), np.asarray(np.imag(waveform)), 'same')
-
+c = np.absolute(signal.correlate(np.asarray(np.real(samples)), np.asarray(np.real(waveform)), 'same'))
+c2 = np.absolute(signal.correlate(np.asarray(np.imag(samples)), np.asarray(np.imag(waveform)), 'same'))
 
 # Stats
-#print('')
-#print('I Channel: ')
-#print('Offset =', offset)
-#print('Correlation Peak =', np.argmax(c))
-#print('Measured Offset =', np.argmax(c)-(wfm_samples/2))
-#print('Difference =', np.argmax(c)-(wfm_samples/2) - offset)
-#print('')
-#print('Q Channel: ')
-#print('Offset =', offset)
-#print('Correlation Peak =', np.argmax(c2))
-#print('Measured Offset =', np.argmax(c2)-(wfm_samples/2))
-#print('Difference =', np.argmax(c2)-(wfm_samples/2) - offset)
-
 print('Offset:')
 print('I =', np.argmax(c)-(wfm_samples/2) - offset)
 print('Q =', np.argmax(c2)-(wfm_samples/2) - offset)

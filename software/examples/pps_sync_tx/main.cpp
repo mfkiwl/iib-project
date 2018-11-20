@@ -114,7 +114,7 @@ int main(int argc, char** argv){
     /* Process Stream for 15s */
     auto t1 = chrono::high_resolution_clock::now();
     auto t2 = t1;
-    while (chrono::high_resolution_clock::now() - t1 < chrono::seconds(60)){
+    while (chrono::high_resolution_clock::now() - t1 < chrono::seconds(30)){
 
         /* Read Samples into Buffer */
         if(LMS_RecvStream(&rx_stream, rx_buffer, num_rx_samples, &rx_metadata, 1000) != num_rx_samples){
