@@ -128,6 +128,7 @@ int main(int argc, char** argv){
             data_file.write((char*)&file_metadata, sizeof(file_metadata));
             data_file.write((char*)file_buffer, sizeof(file_buffer));
             data_file.close();
+            file_number += 1;
 
             /* Debug Output */
             cout << "\nTime: " << file_metadata.unix_stamp << endl;
