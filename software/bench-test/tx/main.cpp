@@ -10,7 +10,7 @@
 #include "tranciever_setup.h"
 using namespace std;
 
-// g++ main.cpp tranciever_setup.cpp -std=c++11 -lLimeSuite -o pps-tx.out
+// g++ main.cpp tranciever_setup.cpp -std=c++11 -lLimeSuite -o bench-tx.out
 
 /* Entry Point */
 int main(int argc, char** argv){
@@ -20,17 +20,17 @@ int main(int argc, char** argv){
     config.rx_centre_frequency = 2.4e9;                 // RX Center Freuency    
     config.rx_antenna = LMS_PATH_LNAH;                  // RX RF Path = 2GHz - 3GHz
     config.rx_gain = 40;                                // RX Gain 0 to 73 dB
-    config.enable_rx_LPF = false;                       // Enable RX Low Pass Filter
+    config.enable_rx_LPF = false;                       // Disable RX Low Pass Filter
     config.rx_LPF_bandwidth = 10e6;                     // RX Analog Low Pass Filter Bandwidth
-    config.enable_rx_cal = false;                        // Enable RX Calibration
+    config.enable_rx_cal = false;                       // Disable RX Calibration
     config.rx_cal_bandwidth = 25e6;                     // Automatic Calibration Bandwidth
     
     config.tx_centre_frequency = 2.4e9;                 // TX Center Freuency
     config.tx_antenna = LMS_PATH_TX1;                   // TX RF Path = 2GHz - 3GHz
     config.tx_gain = 50;                                // TX Gain 0 to 73 dB
-    config.enable_tx_LPF = false;                       // Enable TX Low Pass Filter
+    config.enable_tx_LPF = false;                       // Disable TX Low Pass Filter
     config.tx_LPF_bandwidth = 10e6;                     // TX Analog Low Pass Filter Bandwidth
-    config.enable_tx_cal = false;                        // Enable TX Calibration
+    config.enable_tx_cal = false;                       // Disable TX Calibration
     config.tx_cal_bandwidth = 25e6;                     // Automatic Calibration Bandwidth
     
     config.sample_rate = 30.72e6;                       // Device Sample Rate 
@@ -91,6 +91,7 @@ int main(int argc, char** argv){
     /* Output File */
     ofstream outfile;
     file_header file_metadata;
+    int file_number = 1;
     const string out_path = "data/";
 
     /* Output Buffer */
@@ -110,10 +111,10 @@ int main(int argc, char** argv){
     /* Start RX Stream */
     LMS_StartStream(&rx_stream);
 
-    /* Process Stream for 15s */
+    /* Process Stream for 45s */
     auto t1 = chrono::high_resolution_clock::now();
     auto t2 = t1;
-    while (chrono::high_resolution_clock::now() - t1 < chrono::seconds(10)){
+    while (chrono::high_resolution_clock::now() - t1 < chrono::seconds(45)){
 
         /* Read Samples into Buffer */
         if(LMS_RecvStream(&rx_stream, rx_buffer, num_rx_samples, &rx_metadata, 1000) != num_rx_samples){
@@ -135,10 +136,10 @@ int main(int argc, char** argv){
                 
                 /* UNIQUE PPS EVENT DETCETED */
 
-                tx_schedule_event = curr_buff_idx + 1360 * 100;         // Send TX samples in 100 buffers time
-                tx_capture_event = curr_buff_idx + 1360 * (175 - 15);   // Begin recording ~15 buffers prior to TX
-                tx_start_event = pps_sync_idx + 1360 * 175;             // TX scheduled for 20400 samples after PPS
-                tx_stop_event = curr_buff_idx + 1360 * (175 + 15);      // Close TX stream ~15 buffers after start of TX
+                tx_schedule_event = curr_buff_idx + 1360 * 1500;         // Send TX samples in 500 buffers time
+                tx_capture_event = curr_buff_idx + 1360 * (1800 - 15);   // Begin recording ~15 buffers prior to TX
+                tx_start_event = pps_sync_idx + 1360 * 1800;             // TX scheduled for 600x1360 samples after PPS
+                tx_stop_event = curr_buff_idx + 1360 * (1800 + 15);      // Close TX stream ~15 buffers after start of TX
    
                 cout << "\nCurrent buffer = " << curr_buff_idx << endl;
                 cout << "PPS event occured at " << pps_sync_idx << endl;
@@ -190,10 +191,11 @@ int main(int argc, char** argv){
             }
             
             /* Write to File */
-            outfile.open(out_path + to_string(file_metadata.unix_stamp) + ".bin", std::ofstream::binary);
+            outfile.open(out_path + to_string(file_number) + ".bin", std::ofstream::binary);
             outfile.write((char*)&file_metadata, sizeof(file_metadata));
             outfile.write((char*)file_buffer, sizeof(file_buffer));
             outfile.close();
+            file_number += 1;
         }
     }
 

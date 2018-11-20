@@ -12,7 +12,7 @@ if len(sys.argv) != 2:
     
 # Data Files
 sample_file = open(sys.argv[1], 'rb')
-wfm_file = open('wfm.bin', 'rb')
+wfm_file = open('./../tx/wfm.bin', 'rb')
     
 # Compute Number of Samples Present
 sample_file.read()
@@ -28,7 +28,7 @@ meta = struct.unpack('QQQ', sample_file.read(24))
 print(datetime.utcfromtimestamp(meta[0]).strftime('%Y-%m-%d %H:%M:%S'))
 print("File begins with sample", meta[1])
 print("PPS sync occured at sample", meta[2])
-tx_start =  meta[2] + 1360*175
+tx_start =  meta[2] + 1360*1800
 offset = tx_start - meta[1]
 print("TX begins at sample", tx_start)
 print("Offset = ", offset)
@@ -77,8 +77,8 @@ plt.legend(loc='upper right', frameon=True)
 
 
 # Compute Cross Correlation
-c = signal.correlate(np.asarray(np.real(samples)), np.asarray(np.real(waveform)), 'same')
-c2 = signal.correlate(np.asarray(np.imag(samples)), np.asarray(np.imag(waveform)), 'same')
+c = np.absolute(signal.correlate(np.asarray(np.real(samples)), np.asarray(np.real(waveform)), 'same'))
+c2 = np.absolute(signal.correlate(np.asarray(np.imag(samples)), np.asarray(np.imag(waveform)), 'same'))
 
 # Plot Output
 f,axarr = plt.subplots(2, sharex=True)
