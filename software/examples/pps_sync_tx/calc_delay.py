@@ -21,7 +21,7 @@ sample_file.seek(0)
 
 # Read Sample Metadata
 meta = struct.unpack('QQQ', sample_file.read(24))
-tx_start =  meta[2] + 1360*600
+tx_start =  meta[2] + 1360*1800
 offset = tx_start - meta[1]
 
 # Extract I and Q Channels

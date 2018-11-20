@@ -114,7 +114,7 @@ int main(int argc, char** argv){
     /* Process Stream for 15s */
     auto t1 = chrono::high_resolution_clock::now();
     auto t2 = t1;
-    while (chrono::high_resolution_clock::now() - t1 < chrono::seconds(30)){
+    while (chrono::high_resolution_clock::now() - t1 < chrono::seconds(20)){
 
         /* Read Samples into Buffer */
         if(LMS_RecvStream(&rx_stream, rx_buffer, num_rx_samples, &rx_metadata, 1000) != num_rx_samples){
@@ -136,10 +136,10 @@ int main(int argc, char** argv){
                 
                 /* UNIQUE PPS EVENT DETCETED */
 
-                tx_schedule_event = curr_buff_idx + 1360 * 500;         // Send TX samples in 500 buffers time
-                tx_capture_event = curr_buff_idx + 1360 * (600 - 15);   // Begin recording ~15 buffers prior to TX
-                tx_start_event = pps_sync_idx + 1360 * 600;             // TX scheduled for 600x1360 samples after PPS
-                tx_stop_event = curr_buff_idx + 1360 * (600 + 15);      // Close TX stream ~15 buffers after start of TX
+                tx_schedule_event = curr_buff_idx + 1360 * 1500;         // Send TX samples in 500 buffers time
+                tx_capture_event = curr_buff_idx + 1360 * (1800 - 15);   // Begin recording ~15 buffers prior to TX
+                tx_start_event = pps_sync_idx + 1360 * 1800;             // TX scheduled for 600x1360 samples after PPS
+                tx_stop_event = curr_buff_idx + 1360 * (1800 + 15);      // Close TX stream ~15 buffers after start of TX
    
                 cout << "\nCurrent buffer = " << curr_buff_idx << endl;
                 cout << "PPS event occured at " << pps_sync_idx << endl;
