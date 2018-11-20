@@ -132,8 +132,7 @@ int main(int argc, char** argv){
             /* Debug Output */
             cout << "\nTime: " << file_metadata.unix_stamp << endl;
             cout << "File begins with sample " << file_metadata.buffer_index << endl;
-            cout << "PPS sync occured at sample " << file_metadata.pps_index << endl;
-            cout << "Sync event offset = " << file_metadata.pps_index - file_metadata.buffer_index << endl;     
+            cout << "PPS sync occured at sample " << file_metadata.pps_index << endl; 
         }
     }
 
