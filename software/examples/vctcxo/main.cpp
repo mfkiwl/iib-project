@@ -54,15 +54,15 @@ int main(int argc, char** argv){
     uint64_t prev_pps_sync_idx = 0;
 
     /* VCTCXO DAC Controller - 0 to 4095 -> 0v to 2.538v */
-    uint16_t dac_value = 3229;
+    uint16_t dac_value = 3125;
     
     double target_freq = 30720000;
-    double freq_err = 0.25; 
+    double freq_err = 0.15; 
     bool dac_updated = false;
     
     int j = 0;
     bool first_buff = true;
-    const int ma_len = 10;
+    const int ma_len = 25;
     uint64_t readings[ma_len];
     double avg_freq = 0;
     
@@ -79,7 +79,7 @@ int main(int argc, char** argv){
     /* Process Stream for 300s */
     auto t1 = chrono::high_resolution_clock::now();
     auto t2 = t1;
-    while (chrono::high_resolution_clock::now() - t1 < chrono::seconds(600)){
+    while (chrono::high_resolution_clock::now() - t1 < chrono::seconds(300)){
 
         /* Read Samples into Buffer */
         if(LMS_RecvStream(&rx_stream, rx_buffer, num_rx_samples, &rx_metadata, 1000) != num_rx_samples){
@@ -129,7 +129,7 @@ int main(int argc, char** argv){
                             first_buff = false;
                         }
                     } else {
-                        if(j==10){
+                        if(j==ma_len){
                             j=0;
                         }
                         readings[j] = freq;
