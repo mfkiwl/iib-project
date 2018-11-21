@@ -144,10 +144,10 @@ int main(int argc, char** argv){
                 
                 /* UNIQUE PPS EVENT DETCETED */
 
-                tx_schedule_event = curr_buff_idx + 1360 * 1500;         // Send TX samples in 500 buffers time
+                tx_schedule_event = curr_buff_idx + 1360 * 1500;         // Send TX samples in 1500 buffers time
                 tx_capture_event = curr_buff_idx + 1360 * (1800 - 15);   // Begin recording ~15 buffers prior to TX
-                tx_start_event = pps_sync_idx + 1360 * 1800;             // TX scheduled for 600x1360 samples after PPS
-                tx_stop_event = curr_buff_idx + 1360 * (1800 + 15);      // Close TX stream ~15 buffers after start of TX
+                tx_start_event = pps_sync_idx + 1360 * 1800;             // TX scheduled for 1800 x 1360 samples after PPS
+                tx_stop_event = curr_buff_idx + 1360 * (1800 + 20);      // Close TX stream ~15 buffers after start of TX
    
                 cout << "\nCurrent buffer = " << curr_buff_idx << endl;
                 cout << "PPS event occured at " << pps_sync_idx << endl;
@@ -162,13 +162,21 @@ int main(int argc, char** argv){
             /* Start TX Stream */
             LMS_StartStream(&tx_stream);
 
-            /* Send TX Buffer */
-            tx_metadata.timestamp = tx_start_event;
-            if (LMS_SendStream(&tx_stream, delayed_tx_buffer, num_tx_samples, &tx_metadata, 1000) != num_tx_samples){
-                error();
-            }
+            /* Send TX Buffer - Handle Odd/Even TX Start Event */
+            if(tx_start_event % 2 == 0){
+                tx_metadata.timestamp = tx_start_event;
+                if (LMS_SendStream(&tx_stream, tx_buffer, num_tx_samples, &tx_metadata, 1000) != num_tx_samples){
+                    error();
+                }
+            } else {
+                cout << "Zero padding TX buffer" << endl;
+                tx_metadata.timestamp = tx_start_event - 1;
+                if (LMS_SendStream(&tx_stream, delayed_tx_buffer, num_tx_samples, &tx_metadata, 1000) != num_tx_samples){
+                    error();
+                }
+            }                      
             cout << "Buffer sent, TX scheduled for " << tx_metadata.timestamp << endl;
-            cout << "Offset = " << tx_start_event - tx_capture_event << endl;
+            cout << "Offset = " << tx_metadata.timestamp - tx_capture_event << endl;
         }
 
         /* Capture TX Event */
