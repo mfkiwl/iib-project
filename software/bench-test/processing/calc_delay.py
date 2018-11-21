@@ -54,6 +54,5 @@ c = np.absolute(signal.correlate(np.asarray(np.real(samples)), np.asarray(np.rea
 c2 = np.absolute(signal.correlate(np.asarray(np.imag(samples)), np.asarray(np.imag(waveform)), 'same'))
 
 # Stats
-print('Offset:')
-print('I =', np.argmax(c)-(wfm_samples/2) - offset)
-print('Q =', np.argmax(c2)-(wfm_samples/2) - offset)
+
+print((np.argmax(c)-(wfm_samples/2) - offset), '  ', (np.argmax(c2)-(wfm_samples/2) - offset))
