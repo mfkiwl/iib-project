@@ -71,9 +71,14 @@ int main(int argc, char** argv){
     LMS_SetupStream(device, &tx_stream);
     
     /* TX Data Buffer */
-    const int num_tx_samples = 1360 * 8;
+    const int waveform_samples = 1360 * 8;
+    const int num_tx_samples = 1360 * (8+1);
     const int tx_buffer_size = num_tx_samples * 2;
     int16_t tx_buffer[tx_buffer_size];
+    int16_t delayed_tx_buffer[tx_buffer_size];
+
+    memset(tx_buffer, 0, tx_buffer_size*sizeof(int16_t));
+    memset(delayed_tx_buffer, 0, tx_buffer_size*sizeof(int16_t));
     
     /* TX Stream Metadata */
     lms_stream_meta_t tx_metadata;
@@ -83,10 +88,13 @@ int main(int argc, char** argv){
     /* Read Waveform */
     ifstream wfm_file; 
     wfm_file.open("wfm.bin", ios::binary | ios::in);
-    for(int i = 0; i <num_tx_samples; i++) {
+    for(int i = 0; i < waveform_samples; i++) {
         wfm_file.read((char*)&tx_buffer[2*i], sizeof(int16_t));
         wfm_file.read((char*)&tx_buffer[(2*i)+1], sizeof(int16_t));
     }
+
+    /* Generate TX Buffer Delayed 1 Sample - e.g. (0,0, tx_buffer, 0,0, ... 0,0) */
+    memcpy(&delayed_tx_buffer[2], tx_buffer, waveform_samples * 2 * sizeof(int16_t));
 
     /* Output File */
     ofstream outfile;
@@ -156,7 +164,7 @@ int main(int argc, char** argv){
 
             /* Send TX Buffer */
             tx_metadata.timestamp = tx_start_event;
-            if (LMS_SendStream(&tx_stream, tx_buffer, num_tx_samples, &tx_metadata, 1000) != num_tx_samples){
+            if (LMS_SendStream(&tx_stream, delayed_tx_buffer, num_tx_samples, &tx_metadata, 1000) != num_tx_samples){
                 error();
             }
             cout << "Buffer sent, TX scheduled for " << tx_metadata.timestamp << endl;
