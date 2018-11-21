@@ -176,7 +176,7 @@ int main(int argc, char** argv){
                 }
             }                      
             cout << "Buffer sent, TX scheduled for " << tx_metadata.timestamp << endl;
-            cout << "Offset = " << tx_metadata.timestamp - tx_capture_event << endl;
+            cout << "Offset = " << tx_start_event - tx_capture_event << endl;
         }
 
         /* Capture TX Event */
