@@ -100,6 +100,16 @@ print('Correlation Peak =', np.argmax(c2))
 print('Measured Offset =', np.argmax(c2)-(wfm_samples/2))
 print('Difference =', np.argmax(c2)-(wfm_samples/2) - offset)
 
+# Find Signal Power Over 1000 Samples of Chirp
+power_i = np.mean(np.square(smp_I[offset+90:offset+1090]))
+power_q = np.mean(np.square(smp_Q[offset+90:offset+1090]))
+peak_i = np.max(np.abs(smp_I[offset+90:offset+1090]))
+peak_q = np.max(np.abs(smp_Q[offset+90:offset+1090]))
+
+print('')
+print("I Power = ", power_i, "\nQ Power = ", power_q)
+print("I Peak = ", peak_i, "\nQ Peak = ", peak_q)
+
 plt.show()
 
 
