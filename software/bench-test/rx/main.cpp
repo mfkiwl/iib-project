@@ -18,7 +18,7 @@ int main(int argc, char** argv){
     reciever_configuration config;
     config.rx_centre_frequency = 2.4e9;                 // RX Center Freuency    
     config.rx_antenna = LMS_PATH_LNAH;                  // RX RF Path = 2GHz - 3GHz
-    config.rx_gain = 40;                                // RX Gain - 0 to 73 dB
+    config.rx_gain = 55;                                // RX Gain - 0 to 73 dB
     config.enable_rx_LPF = false;                       // Disable RX Low Pass Filter
     config.rx_LPF_bandwidth = 10e6;                     // RX Analog Low Pass Filter Bandwidth
     config.enable_rx_cal = false;                       // Disable RX Calibration
