@@ -4,10 +4,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
 
-# Parameters - LENGTH MUST BE  1360 x 8 = 10880
+# Parameters
 fs = 30.72e6
 T = 1/fs
-L = 10880
+L = 68000
 
 # Generate Time Vector
 t = np.linspace(0, (L-1)*T, L)
