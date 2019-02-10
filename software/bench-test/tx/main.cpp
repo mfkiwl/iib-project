@@ -19,7 +19,7 @@ int main(int argc, char** argv){
     tranciever_configuration config;
     config.rx_centre_frequency = 2.4e9;                 // RX Center Freuency    
     config.rx_antenna = LMS_PATH_LNAH;                  // RX RF Path = 2GHz - 3GHz
-    config.rx_gain = 40;                                // RX Gain 0 to 73 dB
+    config.rx_gain = 55;                                // RX Gain 0 to 73 dB
     config.enable_rx_LPF = false;                       // Disable RX Low Pass Filter
     config.rx_LPF_bandwidth = 10e6;                     // RX Analog Low Pass Filter Bandwidth
     config.enable_rx_cal = false;                       // Disable RX Calibration
@@ -27,7 +27,7 @@ int main(int argc, char** argv){
     
     config.tx_centre_frequency = 2.4e9;                 // TX Center Freuency
     config.tx_antenna = LMS_PATH_TX1;                   // TX RF Path = 2GHz - 3GHz
-    config.tx_gain = 50;                                // TX Gain 0 to 73 dB
+    config.tx_gain = 55;                                // TX Gain 0 to 73 dB
     config.enable_tx_LPF = false;                       // Disable TX Low Pass Filter
     config.tx_LPF_bandwidth = 10e6;                     // TX Analog Low Pass Filter Bandwidth
     config.enable_tx_cal = false;                       // Disable TX Calibration
