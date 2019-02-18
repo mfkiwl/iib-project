@@ -19,7 +19,7 @@ int main(int argc, char** argv){
     tranciever_configuration config;
     config.rx_centre_frequency = 2.4e9;                 // RX Center Freuency    
     config.rx_antenna = LMS_PATH_LNAH;                  // RX RF Path = 2GHz - 3GHz
-    config.rx_gain = 55;                                // RX Gain 0 to 73 dB
+    config.rx_gain = 65;                                // RX Gain 0 to 73 dB
     config.enable_rx_LPF = false;                       // Disable RX Low Pass Filter
     config.rx_LPF_bandwidth = 15e6;                     // RX Analog Low Pass Filter Bandwidth
     config.enable_rx_cal = false;                        // Disable RX Calibration
@@ -27,7 +27,7 @@ int main(int argc, char** argv){
     
     config.tx_centre_frequency = 868e6;                 // TX Center Freuency
     config.tx_antenna = LMS_PATH_TX2;                   // TX RF Path = 10MHz - 2GHz
-    config.tx_gain = 50;                                // TX Gain 0 to 73 dB
+    config.tx_gain = 65;                                // TX Gain 0 to 73 dB
     config.enable_tx_LPF = false;                       // Disable TX Low Pass Filter
     config.tx_LPF_bandwidth = 10e6;                     // TX Analog Low Pass Filter Bandwidth
     config.enable_tx_cal = false;                       // Disable TX Calibration
@@ -65,8 +65,8 @@ int main(int argc, char** argv){
     LMS_SetupStream(device, &tx_stream);
     
     /* TX Data Buffer */
-    const int waveform_samples = 1360 * 50;
-    const int num_tx_samples = 1360 * (50+1);
+    const int waveform_samples = 1360 * 8;
+    const int num_tx_samples = 1360 * (8+1);
     const int tx_buffer_size = num_tx_samples * 2;
     int16_t tx_buffer[tx_buffer_size];
     int16_t delayed_tx_buffer[tx_buffer_size];
@@ -97,7 +97,7 @@ int main(int argc, char** argv){
     const string out_path = "data/";
 
     /* Output Buffer */
-    const int file_length = 75;
+    const int file_length = 50;
     int16_t file_buffer[rx_buffer_size * file_length];
 
     /* Book Keeping Indicies */
@@ -113,14 +113,10 @@ int main(int argc, char** argv){
     /* Start RX Stream */
     LMS_StartStream(&rx_stream);
 
-    /* Process Stream for 600s */
+    /* Process Stream for 15s */
     auto t1 = chrono::high_resolution_clock::now();
     auto t2 = t1;
-<<<<<<< HEAD
-    while (chrono::high_resolution_clock::now() - t1 < chrono::seconds(150)){
-=======
-    while (chrono::high_resolution_clock::now() - t1 < chrono::seconds(600)){
->>>>>>> parent of 17345d2... round trip testing
+    while (chrono::high_resolution_clock::now() - t1 < chrono::seconds(15)){
 
         /* Read Samples into Buffer */
         if(LMS_RecvStream(&rx_stream, rx_buffer, num_rx_samples, &rx_metadata, 1000) != num_rx_samples){
@@ -145,7 +141,7 @@ int main(int argc, char** argv){
                 tx_schedule_event = curr_buff_idx + 1360 * 1500;         // Send TX samples in 1500 buffers time
                 tx_capture_event = curr_buff_idx + 1360 * (1800 - 15);   // Begin recording ~15 buffers prior to TX
                 tx_start_event = pps_sync_idx + 1360 * 1800;             // TX scheduled for 1800 x 1360 samples after PPS
-                tx_stop_event = curr_buff_idx + 1360 * (1800 + 60);      // Close TX stream ~60 buffers after start of TX
+                tx_stop_event = curr_buff_idx + 1360 * (1800 + 20);      // Close TX stream ~20 buffers after start of TX
    
                 cout << "\nCurrent buffer = " << curr_buff_idx << endl;
                 cout << "PPS event occured at " << pps_sync_idx << endl;
