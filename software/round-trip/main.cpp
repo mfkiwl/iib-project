@@ -22,7 +22,7 @@ int main(int argc, char** argv){
     config.rx_gain = 65;                                // RX Gain 0 to 73 dB
     config.enable_rx_LPF = false;                       // Disable RX Low Pass Filter
     config.rx_LPF_bandwidth = 15e6;                     // RX Analog Low Pass Filter Bandwidth
-    config.enable_rx_cal = false;                       // Disable RX Calibration
+    config.enable_rx_cal = true;                        // Disable RX Calibration
     config.rx_cal_bandwidth = 25e6;                     // Automatic Calibration Bandwidth
     
     config.tx_centre_frequency = 868e6;                 // TX Center Freuency
@@ -30,13 +30,18 @@ int main(int argc, char** argv){
     config.tx_gain = 65;                                // TX Gain 0 to 73 dB
     config.enable_tx_LPF = false;                       // Disable TX Low Pass Filter
     config.tx_LPF_bandwidth = 10e6;                     // TX Analog Low Pass Filter Bandwidth
-    config.enable_tx_cal = false;                       // Disable TX Calibration
+    config.enable_tx_cal = true;                        // Disable TX Calibration
     config.tx_cal_bandwidth = 25e6;                     // Automatic Calibration Bandwidth
     
     config.sample_rate = 30.72e6;                       // Device Sample Rate 
     config.rf_oversample_ratio = 4;                     // ADC Oversample Ratio
     
     configure_tranciever(config);
+
+    
+    /* Extend DC Correction Window  - 2^(12 + n)*/
+    LMS_WriteParam(device, LMS7_MAC, 1); 
+    LMS_WriteParam(device, LMS7_DCCORR_AVG_RXTSP, 6);
    
     /* RX Stream Config  */
     lms_stream_t rx_stream;
