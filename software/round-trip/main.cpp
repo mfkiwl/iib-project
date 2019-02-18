@@ -41,7 +41,8 @@ int main(int argc, char** argv){
     
     /* Extend DC Correction Window  - 2^(12 + n)*/
     LMS_WriteParam(device, LMS7_MAC, 1); 
-    LMS_WriteParam(device, LMS7_DCCORR_AVG_RXTSP, 6);
+    LMS_WriteParam(device, LMS7_DCCORR_AVG_RXTSP, 7);
+    LMS_WriteParam(device, LMS7_AGC_BYP_RXTSP, 1);
    
     /* RX Stream Config  */
     lms_stream_t rx_stream;
