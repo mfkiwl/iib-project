@@ -19,10 +19,10 @@ int main(int argc, char** argv){
     tranciever_configuration config;
     config.rx_centre_frequency = 2.4e9;                 // RX Center Freuency    
     config.rx_antenna = LMS_PATH_LNAH;                  // RX RF Path = 2GHz - 3GHz
-    config.rx_gain = 40;                                // RX Gain 0 to 73 dB
+    config.rx_gain = 50;                                // RX Gain 0 to 73 dB
     config.enable_rx_LPF = false;                       // Disable RX Low Pass Filter
     config.rx_LPF_bandwidth = 10e6;                     // RX Analog Low Pass Filter Bandwidth
-    config.enable_rx_cal = false;                       // Disable RX Calibration
+    config.enable_rx_cal = true;                        // Disable RX Calibration
     config.rx_cal_bandwidth = 25e6;                     // Automatic Calibration Bandwidth
     
     config.tx_centre_frequency = 2.4e9;                 // TX Center Freuency
@@ -30,7 +30,7 @@ int main(int argc, char** argv){
     config.tx_gain = 50;                                // TX Gain 0 to 73 dB
     config.enable_tx_LPF = false;                       // Disable TX Low Pass Filter
     config.tx_LPF_bandwidth = 10e6;                     // TX Analog Low Pass Filter Bandwidth
-    config.enable_tx_cal = false;                       // Disable TX Calibration
+    config.enable_tx_cal = true;                        // Disable TX Calibration
     config.tx_cal_bandwidth = 25e6;                     // Automatic Calibration Bandwidth
     
     config.sample_rate = 30.72e6;                       // Device Sample Rate 
@@ -141,10 +141,10 @@ int main(int argc, char** argv){
     /* Start RX Stream */
     LMS_StartStream(&rx_stream);
 
-    /* Process Stream for 45s */
+    /* Process Stream for 30s */
     auto t1 = chrono::high_resolution_clock::now();
     auto t2 = t1;
-    while (chrono::high_resolution_clock::now() - t1 < chrono::seconds(600)){
+    while (chrono::high_resolution_clock::now() - t1 < chrono::seconds(30)){
 
         /* Read Samples into Buffer */
         if(LMS_RecvStream(&rx_stream, rx_buffer, num_rx_samples, &rx_metadata, 1000) != num_rx_samples){
