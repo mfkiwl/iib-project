@@ -38,12 +38,34 @@ int main(int argc, char** argv){
     
     configure_tranciever(config);
 
-    /* Share TX & RX PLL */
-    LMS_WriteParam(device, LMS7_MAC, 2);
-    LMS_WriteParam(device, LMS7_PD_LOCH_T2RBUF, 0);
+
+    /* TxTSP */
     LMS_WriteParam(device, LMS7_MAC, 1);
-    LMS_WriteParam(device, LMS7_PD_VCO, 1);
-    
+    LMS_WriteParam(device, LMS7_EN_TXTSP, 1);
+    LMS_WriteParam(device, LMS7_CMIX_BYP_TXTSP, 1);
+    LMS_WriteParam(device, LMS7_ISINC_BYP_TXTSP, 1);
+    LMS_WriteParam(device, LMS7_GFIR3_BYP_TXTSP, 1);
+    LMS_WriteParam(device, LMS7_GFIR2_BYP_TXTSP, 1);
+    LMS_WriteParam(device, LMS7_GFIR1_BYP_TXTSP, 1);
+    LMS_WriteParam(device, LMS7_DC_BYP_TXTSP, 0);
+    LMS_WriteParam(device, LMS7_GC_BYP_TXTSP, 0);
+    LMS_WriteParam(device, LMS7_PH_BYP_TXTSP, 0);
+
+    /* RxTSP */
+    LMS_WriteParam(device, LMS7_MAC, 1);
+    LMS_WriteParam(device, LMS7_EN_RXTSP, 1);
+    LMS_WriteParam(device, LMS7_CMIX_BYP_RXTSP, 1);
+    LMS_WriteParam(device, LMS7_AGC_BYP_RXTSP, 1);
+    LMS_WriteParam(device, LMS7_GFIR3_BYP_RXTSP, 1);
+    LMS_WriteParam(device, LMS7_GFIR2_BYP_RXTSP, 1);
+    LMS_WriteParam(device, LMS7_GFIR1_BYP_RXTSP, 1);
+    LMS_WriteParam(device, LMS7_DC_BYP_RXTSP, 0);
+    LMS_WriteParam(device, LMS7_GC_BYP_RXTSP, 0);
+    LMS_WriteParam(device, LMS7_PH_BYP_RXTSP, 0);
+    LMS_WriteParam(device, LMS7_DCCORR_AVG_RXTSP, 7);
+    LMS_WriteParam(device, LMS7_DCLOOP_STOP, 0);
+
+
     /* RX Stream Config  */
     lms_stream_t rx_stream;
     rx_stream.channel = 0;                              // Channel Number
