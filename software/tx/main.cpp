@@ -19,18 +19,18 @@ int main(int argc, char** argv){
     tranciever_configuration config;
     config.rx_centre_frequency = 2.4e9;                 // RX Center Freuency    
     config.rx_antenna = LMS_PATH_LNAH;                  // RX RF Path = 2GHz - 3GHz
-    config.rx_gain = 50;                                // RX Gain 0 to 73 dB
+    config.rx_gain = 55;                                // RX Gain 0 to 73 dB
     config.enable_rx_LPF = false;                       // Disable RX Low Pass Filter
     config.rx_LPF_bandwidth = 10e6;                     // RX Analog Low Pass Filter Bandwidth
-    config.enable_rx_cal = true;                        // Disable RX Calibration
+    config.enable_rx_cal = true;                        // Enable RX Calibration
     config.rx_cal_bandwidth = 25e6;                     // Automatic Calibration Bandwidth
     
     config.tx_centre_frequency = 2.4e9;                 // TX Center Freuency
     config.tx_antenna = LMS_PATH_TX1;                   // TX RF Path = 2GHz - 3GHz
-    config.tx_gain = 50;                                // TX Gain 0 to 73 dB
+    config.tx_gain = 60;                                // TX Gain 0 to 73 dB
     config.enable_tx_LPF = false;                       // Disable TX Low Pass Filter
     config.tx_LPF_bandwidth = 10e6;                     // TX Analog Low Pass Filter Bandwidth
-    config.enable_tx_cal = true;                        // Disable TX Calibration
+    config.enable_tx_cal = true;                        // Enable TX Calibration
     config.tx_cal_bandwidth = 25e6;                     // Automatic Calibration Bandwidth
     
     config.sample_rate = 30.72e6;                       // Device Sample Rate 
@@ -62,8 +62,9 @@ int main(int argc, char** argv){
     LMS_WriteParam(device, LMS7_DC_BYP_RXTSP, 0);
     LMS_WriteParam(device, LMS7_GC_BYP_RXTSP, 0);
     LMS_WriteParam(device, LMS7_PH_BYP_RXTSP, 0);
-    LMS_WriteParam(device, LMS7_DCCORR_AVG_RXTSP, 7);
     LMS_WriteParam(device, LMS7_DCLOOP_STOP, 0);
+    LMS_WriteParam(device, LMS7_DCCORR_AVG_RXTSP, 6);
+    
 
 
     /* RX Stream Config  */
