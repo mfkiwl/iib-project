@@ -87,18 +87,34 @@ axarr[0].set_title('Cross Correlation of I&Q')
 axarr[0].plot(c)
 axarr[1].plot(c2)
 
+# Search for Peak
+delay_i = -1
+delay_q = -1
+while delay_i < 0:
+    peak_idx_i = np.argmax(c)
+    measured_offset_i = peak_idx_i - (wfm_samples/2)
+    delay_i = measured_offset_i - offset
+    c[peak_idx_i] = 0
+
+while delay_q < 0:
+    peak_idx_q = np.argmax(c2)
+    measured_offset_q = peak_idx_q - (wfm_samples/2)
+    delay_q = measured_offset_q - offset
+    c2[peak_idx_q] = 0
+
+
 # Stats
 print('')
 print('I Channel: ')
 print('Offset =', offset)
-print('Correlation Peak =', np.argmax(c))
-print('Measured Offset =', np.argmax(c)-(wfm_samples/2))
-print('Difference =', np.argmax(c)-(wfm_samples/2) - offset)
+print('Correlation Peak =', peak_idx_i)
+print('Measured Offset =', measured_offset_i)
+print('Difference =', delay_i)
 print('')
 print('Q Channel: ')
 print('Offset =', offset)
-print('Correlation Peak =', np.argmax(c2))
-print('Measured Offset =', np.argmax(c2)-(wfm_samples/2))
-print('Difference =', np.argmax(c2)-(wfm_samples/2) - offset)
+print('Correlation Peak =', peak_idx_q)
+print('Measured Offset =', measured_offset_q)
+print('Difference =', delay_q)
 
 plt.show()
