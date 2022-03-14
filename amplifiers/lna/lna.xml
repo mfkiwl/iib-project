@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>/home/matt/Documents/iib-project/amplifiers/lna/lna.sch</source>
+    <date>Mon 05 Nov 2018 10:29:22 PM GMT</date>
+    <tool>Eeschema 5.0.1-33cea8e~68~ubuntu16.04.1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>lna.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="J1">
+      <value>MICROUSB</value>
+      <footprint>agg:MICROUSB_MOLEX_47589-0001</footprint>
+      <fields>
+        <field name="RS">702-5488</field>
+      </fields>
+      <libsource lib="agg-kicad" part="MICROUSB" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BD36BDA</tstamp>
+    </comp>
+    <comp ref="P1">
+      <value>RF IN</value>
+      <footprint>agg:SMA-EDGE</footprint>
+      <fields>
+        <field name="Farnell">1608592</field>
+      </fields>
+      <libsource lib="agg-kicad" part="COAX" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BD37A29</tstamp>
+    </comp>
+    <comp ref="L1">
+      <value>18n</value>
+      <footprint>agg:0402</footprint>
+      <fields>
+        <field name="Mouser">81-LQG15HS18NJ02D</field>
+      </fields>
+      <libsource lib="agg-kicad" part="L" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BD384FB</tstamp>
+    </comp>
+    <comp ref="L2">
+      <value>39n</value>
+      <footprint>agg:0402</footprint>
+      <fields>
+        <field name="Mouser">994-0402CS-39NXGLW</field>
+      </fields>
+      <libsource lib="agg-kicad" part="L" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BD3A1E3</tstamp>
+    </comp>
+    <comp ref="C2">
+      <value>0.01u</value>
+      <footprint>agg:0402</footprint>
+      <fields>
+        <field name="Mouser">80-C0402T103K4RACTU</field>
+      </fields>
+      <libsource lib="agg-kicad" part="C" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BD3AE1F</tstamp>
+    </comp>
+    <comp ref="C1">
+      <value>10p</value>
+      <footprint>agg:0402</footprint>
+      <fields>
+        <field name="Mouser">80-C0402C100K5RACTU</field>
+      </fields>
+      <libsource lib="agg-kicad" part="C" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BD3AEE1</tstamp>
+    </comp>
+    <comp ref="C3">
+      <value>100p</value>
+      <footprint>agg:0402</footprint>
+      <fields>
+        <field name="Mouser">581-0402YC101M</field>
+      </fields>
+      <libsource lib="agg-kicad" part="C" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BD3F49E</tstamp>
+    </comp>
+    <comp ref="F1">
+      <value>BFCN-2450+</value>
+      <footprint>agg:FV1206-4</footprint>
+      <datasheet>https://ww2.minicircuits.com/pdfs/BFCN-2450+.pdf</datasheet>
+      <fields>
+        <field name="Minicircuits">BFCN-2450+</field>
+      </fields>
+      <libsource lib="agg-kicad" part="BFCN-2450+" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BD42A84</tstamp>
+    </comp>
+    <comp ref="P2">
+      <value>RF OUT</value>
+      <footprint>agg:SMA-EDGE</footprint>
+      <fields>
+        <field name="Farnell">1608592</field>
+      </fields>
+      <libsource lib="agg-kicad" part="COAX" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BD4496F</tstamp>
+    </comp>
+    <comp ref="X1">
+      <value>M3 Hole</value>
+      <footprint>agg:M3_MOUNT</footprint>
+      <libsource lib="agg-kicad" part="PART" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BD47F80</tstamp>
+    </comp>
+    <comp ref="IC1">
+      <value>PMA3-83LN+</value>
+      <footprint>agg:DQ1225</footprint>
+      <datasheet>https://ww2.minicircuits.com/pdfs/PMA3-83LN+.pdf</datasheet>
+      <fields>
+        <field name="Minicircuits">PMA3-83LN+</field>
+      </fields>
+      <libsource lib="agg-kicad" part="PMA3-83LN+" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BE0473B</tstamp>
+    </comp>
+    <comp ref="X2">
+      <value>M3 Hole</value>
+      <footprint>agg:M3_MOUNT</footprint>
+      <libsource lib="agg-kicad" part="PART" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5BE0508E</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="agg-kicad" part="BFCN-2450+">
+      <fields>
+        <field name="Reference">F</field>
+        <field name="Value">BFCN-2450+</field>
+        <field name="Footprint">agg:FV1206-4</field>
+        <field name="Datasheet">https://ww2.minicircuits.com/pdfs/BFCN-2450+.pdf</field>
+        <field name="Minicircuits">BFCN-2450+</field>
+      </fields>
+      <pins>
+        <pin num="1" name="IN" type="passive"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="OUT" type="passive"/>
+        <pin num="4" name="GND" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="agg-kicad" part="C">
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="agg-kicad" part="COAX">
+      <fields>
+        <field name="Reference">P</field>
+        <field name="Value">COAX</field>
+        <field name="Footprint">agg:SMA-EDGE</field>
+        <field name="Farnell">1608592</field>
+      </fields>
+      <pins>
+        <pin num="1" name="RF" type="BiDi"/>
+        <pin num="2" name="GND" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="agg-kicad" part="L">
+      <fields>
+        <field name="Reference">L</field>
+        <field name="Value">L</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="agg-kicad" part="MICROUSB">
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">MICROUSB</field>
+        <field name="Footprint">agg:MICROUSB_MOLEX_47589-0001</field>
+        <field name="Farnell">1568023</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VCC" type="power_out"/>
+        <pin num="2" name="D-" type="BiDi"/>
+        <pin num="3" name="D+" type="BiDi"/>
+        <pin num="4" name="ID" type="passive"/>
+        <pin num="5" name="GND" type="power_in"/>
+        <pin num="S" name="SHIELD" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="agg-kicad" part="PART">
+      <fields>
+        <field name="Reference">X</field>
+        <field name="Value">PART</field>
+      </fields>
+    </libpart>
+    <libpart lib="agg-kicad" part="PMA3-83LN+">
+      <fields>
+        <field name="Reference">IC</field>
+        <field name="Value">PMA3-83LN+</field>
+        <field name="Footprint">agg:DQ1225</field>
+        <field name="Datasheet">https://ww2.minicircuits.com/pdfs/PMA3-83LN+.pdf</field>
+        <field name="Minicircuits">PMA3-83LN+</field>
+      </fields>
+      <pins>
+        <pin num="1" name="NC" type="power_in"/>
+        <pin num="2" name="RF_IN" type="input"/>
+        <pin num="3" name="NC" type="power_in"/>
+        <pin num="4" name="NC" type="power_in"/>
+        <pin num="5" name="NC" type="power_in"/>
+        <pin num="6" name="NC" type="power_in"/>
+        <pin num="7" name="NC" type="power_in"/>
+        <pin num="8" name="RF_OUT" type="output"/>
+        <pin num="9" name="NC" type="power_in"/>
+        <pin num="10" name="NC" type="power_in"/>
+        <pin num="11" name="NC" type="NotConnected"/>
+        <pin num="12" name="NC" type="NotConnected"/>
+        <pin num="EP" name="GND" type="power_in"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="agg-kicad">
+      <uri>/home/matt/Documents/agg-kicad/agg-kicad.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="Net-(IC1-Pad12)">
+      <node ref="IC1" pin="12"/>
+    </net>
+    <net code="2" name="Net-(IC1-Pad11)">
+      <node ref="IC1" pin="11"/>
+    </net>
+    <net code="3" name="GND">
+      <node ref="IC1" pin="4"/>
+      <node ref="J1" pin="S"/>
+      <node ref="J1" pin="5"/>
+      <node ref="P1" pin="2"/>
+      <node ref="L1" pin="2"/>
+      <node ref="C1" pin="2"/>
+      <node ref="C2" pin="2"/>
+      <node ref="IC1" pin="EP"/>
+      <node ref="IC1" pin="1"/>
+      <node ref="IC1" pin="3"/>
+      <node ref="IC1" pin="5"/>
+      <node ref="IC1" pin="6"/>
+      <node ref="IC1" pin="7"/>
+      <node ref="IC1" pin="9"/>
+      <node ref="IC1" pin="10"/>
+      <node ref="F1" pin="4"/>
+      <node ref="F1" pin="2"/>
+      <node ref="P2" pin="2"/>
+    </net>
+    <net code="4" name="Net-(F1-Pad3)">
+      <node ref="P2" pin="1"/>
+      <node ref="F1" pin="3"/>
+    </net>
+    <net code="5" name="Net-(C3-Pad2)">
+      <node ref="C3" pin="2"/>
+      <node ref="F1" pin="1"/>
+    </net>
+    <net code="6" name="Net-(J1-Pad4)">
+      <node ref="J1" pin="4"/>
+    </net>
+    <net code="7" name="Net-(IC1-Pad2)">
+      <node ref="L1" pin="1"/>
+      <node ref="P1" pin="1"/>
+      <node ref="IC1" pin="2"/>
+    </net>
+    <net code="8" name="Net-(J1-Pad3)">
+      <node ref="J1" pin="3"/>
+    </net>
+    <net code="9" name="Net-(J1-Pad2)">
+      <node ref="J1" pin="2"/>
+    </net>
+    <net code="10" name="5v">
+      <node ref="L2" pin="1"/>
+      <node ref="C2" pin="1"/>
+      <node ref="C1" pin="1"/>
+      <node ref="J1" pin="1"/>
+    </net>
+    <net code="11" name="Net-(C3-Pad1)">
+      <node ref="C3" pin="1"/>
+      <node ref="L2" pin="2"/>
+      <node ref="IC1" pin="8"/>
+    </net>
+  </nets>
+</export>

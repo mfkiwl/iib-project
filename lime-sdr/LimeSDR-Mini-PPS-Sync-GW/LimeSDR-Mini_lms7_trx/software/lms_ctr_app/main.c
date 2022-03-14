@@ -52,7 +52,9 @@ uint8_t test, block, cmd_errors, glEp0Buffer_Rx[64], glEp0Buffer_Tx[64];
 tLMS_Ctrl_Packet *LMS_Ctrl_Packet_Tx = (tLMS_Ctrl_Packet*)glEp0Buffer_Tx;
 tLMS_Ctrl_Packet *LMS_Ctrl_Packet_Rx = (tLMS_Ctrl_Packet*)glEp0Buffer_Rx;
 
-unsigned char dac_val = 180;
+unsigned int dac_val = 180;
+unsigned char dac_val_msb = 0;
+unsigned char dac_val_lsb = 0;
 unsigned char dac_data[2];
 
 signed short int converted_val = 300;
@@ -648,8 +650,9 @@ int main()
 								LMS_Ctrl_Packet_Tx->Data_field[0 + (block * 4)] = LMS_Ctrl_Packet_Rx->Data_field[block]; //ch
 								LMS_Ctrl_Packet_Tx->Data_field[1 + (block * 4)] = 0x00; //RAW //unit, power
 
-								LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)] = 0; //signed val, MSB byte
-								LMS_Ctrl_Packet_Tx->Data_field[3 + (block * 4)] = dac_val; //signed val, LSB byte
+								/* EDIT - 12 Bit DAC Upgrade */
+								LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)] = (dac_val >> 8) & 0xFF; 	//signed val, MSB byte
+								LMS_Ctrl_Packet_Tx->Data_field[3 + (block * 4)] = dac_val & 0xFF; 			//signed val, LSB byte
 								break;
 
 							case 1: //temperature
@@ -695,12 +698,17 @@ int main()
 							case 0:
 								if (LMS_Ctrl_Packet_Rx->Data_field[1 + (block * 4)] == 0) //RAW units?
 								{
-									if(LMS_Ctrl_Packet_Rx->Data_field[2 + (block * 4)] == 0) //MSB byte empty?
-									{
-										dac_val = LMS_Ctrl_Packet_Rx->Data_field[3 + (block * 4)];
+									/* EDIT - 12 Bit DAC Upgrade*/
 
-										dac_data[0] = (dac_val >> 2) & 0x3F; //POWER-DOWN MODE = NORMAL OPERATION (MSB bits =00) + MSB data
-										dac_data[1] = (dac_val << 6) & 0xC0; //LSB data
+									/* Extract MSB & LSB */
+									dac_val_msb = LMS_Ctrl_Packet_Rx->Data_field[2 + (block * 4)];
+									dac_val_lsb = LMS_Ctrl_Packet_Rx->Data_field[3 + (block * 4)];
+
+									if(((dac_val_msb << 8) | dac_val_lsb) < 4096) // Check range 0 to 4095
+									{
+										dac_val = ((dac_val_msb << 8) | dac_val_lsb);
+										dac_data[0] = (dac_val >> 6) & 0x3F; //POWER-DOWN MODE = NORMAL OPERATION (MSB bits =00) + MSB data
+										dac_data[1] = (dac_val << 2) & 0xFC; //LSB data
 
 										//if( CyU3PI2cTransmitBytes (&preamble, &sc_brdg_data[0], 2, 0) != CY_U3P_SUCCESS)  cmd_errors++;
 										spirez = alt_avalon_spi_command(DAC_SPI_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
